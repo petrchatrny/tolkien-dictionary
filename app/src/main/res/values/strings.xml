@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Tolkien Dictionary</string>
+    <string name="search">Vyhledat</string>
+    <string name="saved">Uložené</string>
+    <string name="settings">Nastavení</string>
+    <string name="sources">Zdroje</string>
+    <string name="software_libraries">Softwarové knihovny</string>
 </resources>
