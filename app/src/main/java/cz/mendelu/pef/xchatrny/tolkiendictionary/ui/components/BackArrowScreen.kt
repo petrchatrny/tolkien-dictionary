@@ -21,12 +21,14 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackArrowScreen(
+    modifier: Modifier = Modifier,
     appBarTitle: String = "",
-    onBackClick: () -> Unit,
+    onBackClick: (() -> Unit)? = null,
     drawFullScreenContent: Boolean = false,
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = {
@@ -39,11 +41,13 @@ fun BackArrowScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onBackClick() }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = null
-                        )
+                    if (onBackClick != null) {
+                        IconButton(onClick = { onBackClick() }) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = null
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
