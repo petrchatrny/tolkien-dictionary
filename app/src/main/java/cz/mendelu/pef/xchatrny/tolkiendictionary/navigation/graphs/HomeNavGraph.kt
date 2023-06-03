@@ -52,11 +52,7 @@ fun HomeNavGraph(
         }
 
         composable(Destination.AddEditWordScreen.route) {
-            BackArrowScreen(
-                appBarTitle = "Přidat upravit slovo", // TODO title
-                onBackClick = { navController.popBackStack() }) {
-                AddEditWordScreen()
-            }
+            AddEditWordScreen(navigation = navigation)
         }
 
         composable(Destination.SourcesScreen.route) {

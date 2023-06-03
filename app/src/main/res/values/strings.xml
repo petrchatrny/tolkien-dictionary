@@ -6,4 +6,12 @@
     <string name="sources">Zdroje</string>
     <string name="software_libraries">Softwarové knihovny</string>
     <string name="downloading_dictionaries">Probíhá stažení slovníků</string>
+    <string name="czech_meaning">Český výraz</string>
+    <string name="language">Jazyk</string>
+    <string name="translation">Překlad</string>
+    <string name="optional_source">Zdroj (nepovinné)</string>
+    <string name="source_name">Jméno zdroje</string>
+    <string name="url">URL</string>
+    <string name="delete">Odsranit</string>
+    <string name="edit">Upravit</string>
 </resources>
