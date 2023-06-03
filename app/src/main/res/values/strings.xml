@@ -14,4 +14,8 @@
     <string name="url">URL</string>
     <string name="delete">Odsranit</string>
     <string name="edit">Upravit</string>
+    <string name="tengwar">tengwar:</string>
+    <string name="added_by">vložil:</string>
+    <string name="added_date">vloženo:</string>
+    <string name="source_is">zdroj:</string>
 </resources>

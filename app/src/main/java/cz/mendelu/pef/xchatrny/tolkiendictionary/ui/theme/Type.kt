@@ -2,9 +2,24 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import cz.mendelu.pef.xchatrny.tolkiendictionary.R
+
+val annatarFont = FontFamily(
+    Font(resId = R.font.annatar, weight = FontWeight.Normal, style = FontStyle.Normal)
+)
+
+val eldamarFont = FontFamily(
+    Font(resId = R.font.eldamar, weight = FontWeight.Normal, style = FontStyle.Normal)
+)
+
+val parmaiteFont = FontFamily(
+    Font(resId = R.font.parmaite, weight = FontWeight.Normal, style = FontStyle.Normal)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -32,3 +47,30 @@ val Typography = Typography(
     )
     */
 )
+
+val Typography.annatar: TextStyle
+    get() = TextStyle(
+        fontFamily = annatarFont,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    )
+
+val Typography.eldamar: TextStyle
+    get() = TextStyle(
+        fontFamily = eldamarFont,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    )
+
+val Typography.parmaite: TextStyle
+    get() = TextStyle(
+        fontFamily = parmaiteFont,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    )

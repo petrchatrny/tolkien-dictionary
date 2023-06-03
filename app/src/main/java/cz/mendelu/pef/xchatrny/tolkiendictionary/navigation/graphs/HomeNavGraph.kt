@@ -45,10 +45,7 @@ fun HomeNavGraph(
         }
 
         composable(Destination.WordDetailScreen.route) {
-            BackArrowScreen(
-                onBackClick = { navController.popBackStack() }) {
-                WordDetailScreen()
-            }
+            WordDetailScreen(navigation = navigation)
         }
 
         composable(Destination.AddEditWordScreen.route) {
