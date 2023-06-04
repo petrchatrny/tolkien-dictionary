@@ -20,10 +20,8 @@ val daoModule = module {
         return database.sourcesDao
     }
 
-    single {
-        provideWordsDao(get())
-        provideLanguagesDao(get())
-        provideSourcesDao(get())
-    }
+    single { provideWordsDao(get()) }
+    single { provideLanguagesDao(get()) }
+    single { provideSourcesDao(get()) }
 }
 

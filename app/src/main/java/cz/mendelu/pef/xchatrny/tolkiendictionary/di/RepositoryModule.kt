@@ -25,10 +25,7 @@ val repositoryModule = module {
         return SourcesRoomRepository(dao)
     }
 
-    single {
-        provideWordsRepository(get())
-        provideLanguagesRepository(get())
-        provideSourcesRepository(get())
-    }
-
+    single { provideWordsRepository(get()) }
+    single { provideLanguagesRepository(get()) }
+    single { provideSourcesRepository(get()) }
 }
