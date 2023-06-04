@@ -12,5 +12,5 @@ data class WordWithSource(
         parentColumn = "id_source",
         entityColumn = "id_source"
     )
-    val source: Source
+    val source: Source?
 )

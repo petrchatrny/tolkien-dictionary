@@ -12,25 +12,25 @@ data class Word(
     val id: UUID = UUID.randomUUID(),
 
     @ColumnInfo(name = "czech_meaning")
-    val czechMeaning: String,
+    var czechMeaning: String,
 
     @ColumnInfo(name = "translation")
-    val translation: String,
+    var translation: String,
 
     @ColumnInfo(name = "tengwar")
-    val tengwar: String,
+    val tengwar: String? = null,
 
     @ColumnInfo(name = "added_by_admin")
-    val addedByAdmin: Boolean,
+    val addedByAdmin: Boolean = false,
 
     @ColumnInfo(name = "is_favourite")
-    val isFavourite: Boolean,
+    val isFavourite: Boolean = false,
 
     @ColumnInfo(name = "creation_date")
-    val creationDate: Long,
+    val creationDate: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "id_language")
-    val idLanguage: UUID,
+    var idLanguage: UUID? = null,
 
     @ColumnInfo(name = "id_source")
     val idSource: UUID? = null
