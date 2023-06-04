@@ -1,4 +1,4 @@
-package cz.mendelu.pef.xchatrny.tolkiendictionary
+package cz.mendelu.pef.xchatrny.tolkiendictionary.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
