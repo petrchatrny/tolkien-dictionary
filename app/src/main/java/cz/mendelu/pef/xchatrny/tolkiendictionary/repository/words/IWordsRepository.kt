@@ -8,7 +8,7 @@ import java.util.UUID
 interface IWordsRepository {
     fun getAll(): Flow<List<Word>>
 
-    fun getWordWithSource(id: UUID): Flow<WordWithSource>
+    suspend fun getWordWithSourceById(id: UUID): WordWithSource
 
     fun getFavouriteWords(): Flow<List<Word>>
 

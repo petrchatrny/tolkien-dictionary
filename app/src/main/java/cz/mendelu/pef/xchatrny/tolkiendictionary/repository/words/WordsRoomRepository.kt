@@ -11,8 +11,8 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
         return dao.getAll()
     }
 
-    override fun getWordWithSource(id: UUID): Flow<WordWithSource> {
-        return dao.getWordWithSource(id = id)
+    override suspend fun getWordWithSourceById(id: UUID): WordWithSource {
+        return dao.getWordWithSourceById(id = id)
     }
 
     override fun getFavouriteWords(): Flow<List<Word>> {

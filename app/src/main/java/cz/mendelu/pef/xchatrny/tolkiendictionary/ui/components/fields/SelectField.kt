@@ -21,7 +21,7 @@ class SelectFieldItem<T>(val label: String, val value: T)
 @Composable
 fun <T> SelectField(
     modifier: Modifier = Modifier,
-    items: Array<SelectFieldItem<T>>,
+    items: List<SelectFieldItem<T>>,
     selectedItem: SelectFieldItem<T>? = null,
     onSelectedItemChange: (item: SelectFieldItem<T>) -> Unit,
     label: String,

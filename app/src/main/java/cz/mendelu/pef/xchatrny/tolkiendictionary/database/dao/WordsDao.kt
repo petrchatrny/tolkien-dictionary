@@ -16,7 +16,7 @@ interface WordsDao {
     fun getAll(): Flow<List<Word>>
 
     @Query("SELECT * FROM words WHERE id_word=:id")
-    fun getWordWithSource(id: UUID): Flow<WordWithSource>
+    suspend fun getWordWithSourceById(id: UUID): WordWithSource
 
     @Query("SELECT * FROM words WHERE is_favourite = 1")
     fun getFavouriteWords(): Flow<List<Word>>
