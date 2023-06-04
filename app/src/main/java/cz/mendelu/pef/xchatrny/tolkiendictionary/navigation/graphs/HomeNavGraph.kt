@@ -5,13 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.BottomNavDestination
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.Destination
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.INavigationRouter
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.NavigationRouterImpl
+import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.UUID_ARGUMENT_KEY
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.BackArrowScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.add_edit_word.AddEditWordScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.saved_words.SavedWordsScreen
@@ -20,6 +23,7 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.settings.SettingsScr
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.software_libraries.SoftwareLibrariesScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.sources.SourcesScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.word_detail.WordDetailScreen
+import java.util.UUID
 
 @Composable
 fun HomeNavGraph(
@@ -44,12 +48,38 @@ fun HomeNavGraph(
             SettingsScreen(paddingValues = paddingValues)
         }
 
-        composable(Destination.WordDetailScreen.route) {
-            WordDetailScreen(navigation = navigation)
+        composable(
+            route = Destination.WordDetailScreen.route,
+            arguments = listOf(
+                navArgument(UUID_ARGUMENT_KEY) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                })
+        ) {
+            // parse UUID
+            val uuidString = it.arguments?.getString(UUID_ARGUMENT_KEY)
+            if (!uuidString.isNullOrEmpty()) {
+                val uuid = UUID.fromString(uuidString)
+                WordDetailScreen(navigation = navigation, id = uuid)
+            }
         }
 
-        composable(Destination.AddEditWordScreen.route) {
-            AddEditWordScreen(navigation = navigation)
+        composable(
+            route = Destination.AddEditWordScreen.route,
+            arguments = listOf(
+                navArgument(UUID_ARGUMENT_KEY) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                })
+        ) {
+            // parse UUID
+            val uuidString = it.arguments?.getString(UUID_ARGUMENT_KEY)
+            if (!uuidString.isNullOrEmpty() && uuidString != "null") {
+                val uuid = UUID.fromString(uuidString)
+                AddEditWordScreen(navigation = navigation, id = uuid)
+            } else {
+                AddEditWordScreen(navigation = navigation, id = null)
+            }
         }
 
         composable(Destination.SourcesScreen.route) {

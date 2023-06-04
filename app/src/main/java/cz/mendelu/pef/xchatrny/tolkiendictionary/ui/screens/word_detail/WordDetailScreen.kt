@@ -35,9 +35,10 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.INavigationRouter
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.BackArrowScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.lists.TableRow
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.theme.annatar
+import java.util.UUID
 
 @Composable
-fun WordDetailScreen(navigation: INavigationRouter) {
+fun WordDetailScreen(navigation: INavigationRouter, id: UUID) {
     BackArrowScreen(
         onBackClick = { navigation.navigateBack() },
         drawFullScreenContent = true

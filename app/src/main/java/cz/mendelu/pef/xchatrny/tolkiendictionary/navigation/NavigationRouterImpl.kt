@@ -17,13 +17,11 @@ class NavigationRouterImpl(
     }
 
     override fun navigateToAddEditWordScreen(id: UUID?) {
-        // TODO pass UUID
-        navController.navigate(Destination.AddEditWordScreen.route)
+        navController.navigate(Destination.AddEditWordScreen.passUUID(id))
     }
 
     override fun navigateToWordDetailScreen(id: UUID) {
-        // TODO pass UUID
-        navController.navigate(Destination.WordDetailScreen.route)
+        navController.navigate(Destination.WordDetailScreen.passUUID(id))
     }
 
     override fun navigateToSourcesScreen() {

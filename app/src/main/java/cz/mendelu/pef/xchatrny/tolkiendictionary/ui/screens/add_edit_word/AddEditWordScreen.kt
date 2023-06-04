@@ -23,9 +23,10 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.BackArrowScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.SelectField
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.SelectFieldItem
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.TextField
+import java.util.UUID
 
 @Composable
-fun AddEditWordScreen(navigation: INavigationRouter) {
+fun AddEditWordScreen(navigation: INavigationRouter, id: UUID?) {
     BackArrowScreen(
         drawFullScreenContent = true,
         appBarTitle = "Přidat upravit slovo", // TODO title
