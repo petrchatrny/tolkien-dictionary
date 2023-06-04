@@ -1,0 +1,22 @@
+package cz.mendelu.pef.xchatrny.tolkiendictionary.model
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.UUID
+
+@Entity(tableName = "sources")
+data class Source(
+    @PrimaryKey
+    @ColumnInfo("id_source")
+    val id: UUID = UUID.randomUUID(),
+
+    @ColumnInfo(name = "name")
+    val name: String,
+
+    @ColumnInfo(name = "url")
+    val url: String,
+
+    @ColumnInfo(name = "added_by_admin")
+    val addedByAdmin: Boolean,
+)
