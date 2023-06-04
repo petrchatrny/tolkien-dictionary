@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import cz.mendelu.pef.xchatrny.tolkiendictionary.di.daoModule
 import cz.mendelu.pef.xchatrny.tolkiendictionary.di.databaseModule
+import cz.mendelu.pef.xchatrny.tolkiendictionary.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -19,7 +20,7 @@ class TolkienDictionaryApp : Application() {
             androidContext(this@TolkienDictionaryApp)
             modules(
                 listOf(
-                    daoModule, databaseModule
+                    daoModule, databaseModule, repositoryModule
                 )
             )
         }
