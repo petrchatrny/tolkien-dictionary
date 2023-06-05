@@ -6,6 +6,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 
 class SelectFieldItem<T>(val label: String, val value: T)
@@ -43,9 +44,8 @@ fun <T> SelectField(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .onGloballyPositioned { coordinates ->
-                sizeOfDropdownInRelationToTextField = coordinates.size.toSize()
-            }
+            .onGloballyPositioned { sizeOfDropdownInRelationToTextField = it.size.toSize() }
+            .padding(bottom = 16.dp)
     ) {
         OutlinedTextField(
             modifier = modifier.fillMaxWidth(),
@@ -55,12 +55,8 @@ fun <T> SelectField(
             readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
             interactionSource = interactionSource,
-            isError = error != null,
-            supportingText = {
-                error?.let {
-                    Text(text = stringResource(error))
-                }
-            },
+            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+            isError = error != null
         )
 
         DropdownMenu(

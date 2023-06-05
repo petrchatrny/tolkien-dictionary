@@ -124,6 +124,7 @@ fun AddEditWordContent(
         )
 
         SelectField(
+            modifier = Modifier.fillMaxWidth(),
             items = data.selectableLanguages,
             selectedItem = data.selectedLanguage,
             onSelectedItemChange = { actions.onLanguageChange(it) },
