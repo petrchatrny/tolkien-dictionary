@@ -41,7 +41,7 @@ fun HomeNavGraph(
         }
 
         composable(route = BottomNavDestination.SavedWordsScreen.route) {
-            SavedWordsScreen(paddingValues = paddingValues)
+            SavedWordsScreen(paddingValues = paddingValues, navigation = navigation)
         }
 
         composable(route = BottomNavDestination.SettingsScreen.route) {
