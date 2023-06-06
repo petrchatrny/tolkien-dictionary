@@ -3,6 +3,7 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.WordsDao
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Language
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
+import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguage
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithSource
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
@@ -28,7 +29,7 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
         return dao.getWordWithSourceById(id = id)
     }
 
-    override fun getBookmarkedWords(): Flow<List<Word>> {
+    override fun getBookmarkedWords(): Flow<List<WordWithLanguage>> {
         return dao.getBookmarkedWords()
     }
 
