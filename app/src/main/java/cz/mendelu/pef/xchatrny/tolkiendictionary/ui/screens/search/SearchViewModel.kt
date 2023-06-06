@@ -29,7 +29,9 @@ class SearchViewModel(
             }
 
             // selected dictionary type
-            data.selectedDictionaryType = data.dictionaryTypes[0]
+            if (data.dictionaryTypes.size > 0) {
+                data.selectedDictionaryType = data.dictionaryTypes[0]
+            }
 
             // load words
             uiState = SearchUIState.Loading
@@ -45,6 +47,8 @@ class SearchViewModel(
                     data.wordsCount = it.size
                     uiState = SearchUIState.Success(it)
                 }
+            } ?: run {
+                uiState = SearchUIState.Success(listOf())
             }
         }
     }

@@ -27,4 +27,9 @@
     <string name="czechMeaningNotEmpty">Český výraz musí být zadán</string>
     <string name="translationMeaningNotEmpty">Překlad musí být zadán</string>
     <string name="languageNotEmpty">Jazyk musí být vybrán</string>
+    <string name="czech">Čeština</string>
+    <string name="no_words_found">Nebyla nalezena žádná slovíčka</string>
+    <string name="no_saved_words_yet">Nemáte zatím žádná uložená slovíčka</string>
+    <string name="existing">Existující</string>
+    <string name="brandNew">Nový</string>
 </resources>

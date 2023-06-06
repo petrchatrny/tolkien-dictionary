@@ -161,8 +161,7 @@ fun SearchScreenContent(
             }
         } else {
             Column(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -171,7 +170,7 @@ fun SearchScreenContent(
                 } else {
                     Text(
                         modifier = Modifier.padding(horizontal = 16.dp),
-                        text = "Nebyla nalezena žádná slovíčka",
+                        text = stringResource(R.string.no_words_found),
                         color = MaterialTheme.colorScheme.primary,
                         fontSize = MaterialTheme.typography.titleMedium.fontSize,
                         fontWeight = FontWeight.Bold,

@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,12 +43,15 @@ fun TextSpinner(
                     .rotate(if (isExpanded) 180f else 0f)
                     .size(16.dp),
                 imageVector = Icons.Filled.ArrowDropDown,
-                contentDescription = null
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Text(
                 modifier = Modifier.padding(start = 4.dp),
                 text = selectedItem,
                 fontSize = MaterialTheme.typography.labelMedium.fontSize,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
             )
         }
 

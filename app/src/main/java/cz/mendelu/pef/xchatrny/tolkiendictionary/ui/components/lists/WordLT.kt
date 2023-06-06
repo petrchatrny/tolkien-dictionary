@@ -71,10 +71,11 @@ fun WordLT(
                 Text(
                     text = if (inverse) word.translation else word.czechMeaning,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontStyle = MaterialTheme.typography.bodyMedium.fontStyle,
                     fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                     lineHeight = MaterialTheme.typography.bodyMedium.lineHeight,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
                 )
             },
             trailingContent = {
