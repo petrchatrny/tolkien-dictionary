@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.INavigationRouter
@@ -38,10 +39,13 @@ fun LoadingScreenContent() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
+            modifier = Modifier.padding(horizontal = 16.dp),
             text = stringResource(id = R.string.app_name),
             fontSize = MaterialTheme.typography.headlineLarge.fontSize,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
+            textAlign = TextAlign.Center,
+            lineHeight = MaterialTheme.typography.headlineLarge.lineHeight
         )
         Image(
             modifier = Modifier.padding(top = 40.dp, bottom = 40.dp),

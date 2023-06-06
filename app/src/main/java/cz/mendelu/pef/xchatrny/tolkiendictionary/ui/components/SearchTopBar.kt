@@ -3,6 +3,8 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -21,6 +23,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +32,9 @@ import androidx.compose.ui.unit.dp
 fun SearchTopBar(
     title: String = "",
     query: String,
-    onQueryChange: (newQuery: String) -> Unit
+    onQueryChange: (newQuery: String) -> Unit = {},
+    onSubmit: () -> Unit = {},
+    onClear: () -> Unit = {}
 ) {
     var isSearchVisible by remember { mutableStateOf(false) }
 
@@ -36,7 +42,7 @@ fun SearchTopBar(
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp),
+                .height(64.dp), // TODO on enter pressed
             value = query,
             onValueChange = onQueryChange,
             leadingIcon = {
@@ -48,17 +54,27 @@ fun SearchTopBar(
             trailingIcon = {
                 Icon(
                     modifier = Modifier.clickable {
+                        onClear()
                         isSearchVisible = false
                     },
                     imageVector = Icons.Default.Close,
                     contentDescription = null
                 )
             },
-            singleLine = true
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = { onSubmit() }),
         )
     } else {
         TopAppBar(
-            title = { Text(text = title) },
+            title = {
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            },
             actions = {
                 IconButton(onClick = {
                     isSearchVisible = !isSearchVisible
