@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 class LanguagesRoomRepository(private val dao: LanguagesDao) : ILanguagesRepository {
-    override fun getAll(): Flow<List<Language>> {
+    override suspend fun getAll(): List<Language> {
         return dao.getAll()
     }
 

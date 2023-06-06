@@ -14,7 +14,7 @@ import java.util.UUID
 @Dao
 interface LanguagesDao {
     @Query("SELECT * FROM languages")
-    fun getAll(): Flow<List<Language>>
+    suspend fun getAll(): List<Language>
 
     @Transaction
     @Query("SELECT * FROM languages WHERE id_language=:id")

@@ -24,22 +24,21 @@ class AddEditWordViewModel(
 
     fun initData() {
         launch {
-            languagesRepository.getAll().collect {
-                // load languages
-                data.selectableLanguages = it.map { lang ->
-                    SelectFieldItem(lang.name, lang.id)
-                }
-
-                // load word data
-                wordId?.let { uuid ->
-                    val wordWithSource = wordsRepository.getWordWithSourceById(id = uuid)
-                    data.word = wordWithSource.word
-                    data.selectedLanguage = getSelectableLanguage(wordWithSource.word.idLanguage)
-                    data.source = wordWithSource.source
-                }
-
-                uiState = AddEditWordUIState.Default
+            // load languages
+            val languages = languagesRepository.getAll()
+            data.selectableLanguages = languages.map { lang ->
+                SelectFieldItem(lang.name, lang.id)
             }
+
+            // load word data
+            wordId?.let { uuid ->
+                val wordWithSource = wordsRepository.getWordWithSourceById(id = uuid)
+                data.word = wordWithSource.word
+                data.selectedLanguage = getSelectableLanguage(wordWithSource.word.idLanguage)
+                data.source = wordWithSource.source
+            }
+
+            uiState = AddEditWordUIState.Default
         }
     }
 

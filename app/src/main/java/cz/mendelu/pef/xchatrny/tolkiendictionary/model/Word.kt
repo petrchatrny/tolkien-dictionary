@@ -23,8 +23,8 @@ data class Word(
     @ColumnInfo(name = "added_by_admin")
     val addedByAdmin: Boolean = false,
 
-    @ColumnInfo(name = "is_favourite")
-    val isFavourite: Boolean = false,
+    @ColumnInfo(name = "is_bookmarked")
+    var isBookmarked: Boolean = false,
 
     @ColumnInfo(name = "creation_date")
     val creationDate: Long = System.currentTimeMillis(),
