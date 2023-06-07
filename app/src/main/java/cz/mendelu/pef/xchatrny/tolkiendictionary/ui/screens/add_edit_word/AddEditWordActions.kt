@@ -9,6 +9,7 @@ interface AddEditWordActions {
     fun onWordChange(word: Word)
     fun onSourceChange(source: Source?)
     fun onLanguageChange(language: SelectFieldItem<UUID>?)
+    fun onDataChange(data: AddEditWordData)
     fun saveWord(update: Boolean)
     fun deleteWord()
 }

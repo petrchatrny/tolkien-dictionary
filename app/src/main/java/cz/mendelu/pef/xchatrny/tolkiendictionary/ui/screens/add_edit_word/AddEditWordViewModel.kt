@@ -8,6 +8,7 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.architecture.BaseViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Source
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguagesRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.ITengwarRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.IWordsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.SelectFieldItem
 import kotlinx.coroutines.launch
@@ -15,7 +16,8 @@ import java.util.UUID
 
 class AddEditWordViewModel(
     private val wordsRepository: IWordsRepository,
-    private val languagesRepository: ILanguagesRepository
+    private val languagesRepository: ILanguagesRepository,
+    private val tengwarRepository: ITengwarRepository
 ) : BaseViewModel(), AddEditWordActions {
     var wordId: UUID? = null
 
@@ -57,25 +59,42 @@ class AddEditWordViewModel(
         uiState = AddEditWordUIState.DataChanged
     }
 
+    override fun onDataChange(data: AddEditWordData) {
+        this.data = data
+        uiState = AddEditWordUIState.DataChanged
+    }
+
     override fun saveWord(update: Boolean) {
         val isValid = validateWord()
 
         if (isValid) {
+            uiState = AddEditWordUIState.Saving
             data.word.idLanguage = data.selectedLanguage?.value
 
             launch {
-                uiState = if (update) {
-                    wordsRepository.update(data.word)
-                    AddEditWordUIState.WordUpdated
+                if (data.doTranscription) {
+                    tengwarRepository.getTranscription(data.word.translation).collect {
+                        data.word.tengwar = it
+                        performSave(update)
+                    }
                 } else {
-                    wordsRepository.insert(data.word)
-                    AddEditWordUIState.WordCreated
+                    performSave(update)
                 }
             }
         } else {
             uiState = AddEditWordUIState.ValidationError
         }
 
+    }
+
+    private suspend fun performSave(update: Boolean) {
+        uiState = if (update) {
+            wordsRepository.update(data.word)
+            AddEditWordUIState.WordUpdated
+        } else {
+            wordsRepository.insert(data.word)
+            AddEditWordUIState.WordCreated
+        }
     }
 
     override fun deleteWord() {

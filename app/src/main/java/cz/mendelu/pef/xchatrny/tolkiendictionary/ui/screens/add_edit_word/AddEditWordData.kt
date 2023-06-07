@@ -13,6 +13,8 @@ class AddEditWordData {
     )
     var source: Source? = null
 
+    var doTranscription: Boolean = true
+
     var selectableLanguages: List<SelectFieldItem<UUID>> = listOf()
     var selectedLanguage: SelectFieldItem<UUID>? = null
 

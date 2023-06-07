@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { AddEditWordViewModel(get(), get()) }
+    viewModel { AddEditWordViewModel(get(), get(), get()) }
     viewModel { SearchViewModel(get(), get()) }
     viewModel { SavedWordsViewModel(get()) }
 

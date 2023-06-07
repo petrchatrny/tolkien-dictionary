@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import cz.mendelu.pef.xchatrny.tolkiendictionary.di.daoModule
 import cz.mendelu.pef.xchatrny.tolkiendictionary.di.databaseModule
+import cz.mendelu.pef.xchatrny.tolkiendictionary.di.networkModule
 import cz.mendelu.pef.xchatrny.tolkiendictionary.di.repositoryModule
 import cz.mendelu.pef.xchatrny.tolkiendictionary.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -21,7 +22,8 @@ class TolkienDictionaryApp : Application() {
             androidContext(this@TolkienDictionaryApp)
             modules(
                 listOf(
-                    daoModule, databaseModule, repositoryModule, viewModelModule
+                    daoModule, databaseModule, repositoryModule,
+                    viewModelModule, networkModule
                 )
             )
         }

@@ -1,5 +1,6 @@
 package cz.mendelu.pef.xchatrny.tolkiendictionary.di
 
+import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.TengwarApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.LanguagesDao
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.SourcesDao
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.WordsDao
@@ -7,6 +8,8 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguages
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.LanguagesRoomRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.ISourcesRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.SourcesRoomRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.ITengwarRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.TengwarTencendilRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.IWordsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.WordsRoomRepository
 import org.koin.dsl.module
@@ -25,7 +28,12 @@ val repositoryModule = module {
         return SourcesRoomRepository(dao)
     }
 
+    fun provideTengwarRepository(api: TengwarApi): ITengwarRepository {
+        return TengwarTencendilRepository(api)
+    }
+
     single { provideWordsRepository(get()) }
     single { provideLanguagesRepository(get()) }
     single { provideSourcesRepository(get()) }
+    single { provideTengwarRepository(get()) }
 }

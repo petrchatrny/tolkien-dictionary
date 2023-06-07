@@ -2,14 +2,17 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.add_edit_word
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.INavigationRouter
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.BackArrowScreen
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.LoadingButton
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.SelectField
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.TextField
 import org.koin.androidx.compose.getViewModel
@@ -46,6 +50,8 @@ fun AddEditWordScreen(
             AddEditWordUIState.Loading -> {
                 viewModel.initData()
             }
+
+            AddEditWordUIState.Saving -> {}
 
             AddEditWordUIState.DataChanged -> {
                 data = viewModel.data
@@ -95,6 +101,7 @@ fun AddEditWordScreen(
         AddEditWordContent(
             paddingValues = it,
             isEdit = id != null,
+            isSaving = viewModel.uiState == AddEditWordUIState.Saving,
             data = data,
             actions = viewModel
         )
@@ -105,6 +112,7 @@ fun AddEditWordScreen(
 fun AddEditWordContent(
     paddingValues: PaddingValues,
     isEdit: Boolean,
+    isSaving: Boolean,
     data: AddEditWordData,
     actions: AddEditWordActions
 ) {
@@ -123,15 +131,6 @@ fun AddEditWordContent(
             error = data.errorCzechMeaning
         )
 
-        SelectField(
-            modifier = Modifier.fillMaxWidth(),
-            items = data.selectableLanguages,
-            selectedItem = data.selectedLanguage,
-            onSelectedItemChange = { actions.onLanguageChange(it) },
-            label = stringResource(R.string.language),
-            error = data.errorLanguage
-        )
-
         TextField(
             label = stringResource(R.string.translation),
             value = data.word.translation,
@@ -142,40 +141,62 @@ fun AddEditWordContent(
             error = data.errorTranslation
         )
 
-        Text(
-            modifier = Modifier.padding(top = 8.dp),
-            text = stringResource(R.string.optional_source),
-            fontSize = MaterialTheme.typography.titleMedium.fontSize
+        SelectField(
+            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(R.string.language),
+            items = data.selectableLanguages,
+            selectedItem = data.selectedLanguage,
+            onSelectedItemChange = { actions.onLanguageChange(it) },
+            error = data.errorLanguage
         )
 
         // TODO picker for ChooseSourceDialog
+
+        Row(
+            modifier = Modifier
+                .padding(bottom = 48.dp)
+                .fillMaxWidth()
+                .clickable {},
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Checkbox(
+                checked = data.doTranscription,
+                onCheckedChange = {
+                    data.doTranscription = it
+                    actions.onDataChange(data)
+                }
+            )
+            Spacer(Modifier.width(8.dp))
+
+            Text(text = "Provést transkripci překladu do Tengwaru")
+        }
 
         if (isEdit) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                OutlinedButton(
-                    onClick = { actions.deleteWord() }) {
-                    Text(
-                        text = stringResource(R.string.delete),
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
+                LoadingButton(
+                    onClick = { actions.deleteWord() },
+                    text = stringResource(R.string.delete),
+                    color = MaterialTheme.colorScheme.error
+                )
 
-                OutlinedButton(
-                    onClick = { actions.saveWord(update = true) }) {
-                    Text(text = stringResource(R.string.edit))
-                }
+                LoadingButton(
+                    isLoading = isSaving,
+                    onClick = { actions.saveWord(update = true) },
+                    text = stringResource(R.string.edit)
+                )
             }
         } else {
-            OutlinedButton(
+            LoadingButton(
                 modifier = Modifier.align(alignment = Alignment.End),
-                onClick = { actions.saveWord(update = false) }) {
-                Text(text = stringResource(R.string.add))
-            }
+                isLoading = isSaving,
+                onClick = { actions.saveWord(update = false) },
+                text = stringResource(R.string.add)
+            )
         }
-
     }
 }
 
@@ -191,6 +212,6 @@ private fun SubmitForm(
             context, message, Toast.LENGTH_SHORT
         ).show()
 
-        navigation.navigateToHomeGraph()
+        navigation.navigateBack()
     }
 }

@@ -18,7 +18,7 @@ data class Word(
     var translation: String,
 
     @ColumnInfo(name = "tengwar")
-    val tengwar: String? = null,
+    var tengwar: String? = null,
 
     @ColumnInfo(name = "added_by_admin")
     val addedByAdmin: Boolean = false,
