@@ -5,5 +5,5 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguag
 sealed class WordDetailUIState {
     object Default: WordDetailUIState()
     object Loading: WordDetailUIState()
-    class Success(val word: WordWithLanguageAndSource): WordDetailUIState()
+    class Success(val word: WordWithLanguageAndSource?): WordDetailUIState()
 }
