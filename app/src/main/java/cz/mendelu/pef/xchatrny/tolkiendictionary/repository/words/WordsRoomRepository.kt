@@ -4,6 +4,7 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.WordsDao
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Language
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguage
+import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguageAndSource
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithSource
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
@@ -13,7 +14,11 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
         return dao.getAll()
     }
 
-    override fun getAll(query: String, language: Language, criteria: SearchCriteria): Flow<List<Word>> {
+    override fun getAll(
+        query: String,
+        language: Language,
+        criteria: SearchCriteria
+    ): Flow<List<Word>> {
         return when (criteria) {
             SearchCriteria.CZECH_MEANING -> {
                 dao.getAllByCzechMeaning(query, language.id)
@@ -27,6 +32,10 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
 
     override suspend fun getWordWithSourceById(id: UUID): WordWithSource {
         return dao.getWordWithSourceById(id = id)
+    }
+
+    override fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource> {
+        return dao.getWordWithLanguageAndSourceById(id = id)
     }
 
     override fun getBookmarkedWords(): Flow<List<WordWithLanguage>> {

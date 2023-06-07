@@ -32,4 +32,8 @@
     <string name="no_saved_words_yet">Nemáte zatím žádná uložená slovíčka</string>
     <string name="existing">Existující</string>
     <string name="brandNew">Nový</string>
+    <string name="language_with_colon">jazyk:</string>
+    <string name="unknown">neznámé</string>
+    <string name="administrator">administrátor</string>
+    <string name="user">uživatel</string>
 </resources>

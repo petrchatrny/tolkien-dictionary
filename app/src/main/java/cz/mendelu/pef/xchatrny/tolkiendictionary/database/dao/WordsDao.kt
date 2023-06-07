@@ -8,6 +8,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguage
+import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguageAndSource
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithSource
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
@@ -36,6 +37,10 @@ interface WordsDao {
     @Transaction
     @Query("SELECT * FROM words WHERE id_word=:id")
     suspend fun getWordWithSourceById(id: UUID): WordWithSource
+
+    @Transaction
+    @Query("SELECT * FROM words WHERE id_word=:id")
+    fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource>
 
     @Transaction
     @Query( "SELECT * " +
