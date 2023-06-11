@@ -21,4 +21,10 @@ interface SourcesDao {
 
     @Delete
     suspend fun delete(source: Source)
+
+    @Insert
+    suspend fun insertAll(sources: List<Source>)
+
+    @Query("DELETE FROM sources WHERE added_by_admin = 1")
+    suspend fun deleteAll()
 }

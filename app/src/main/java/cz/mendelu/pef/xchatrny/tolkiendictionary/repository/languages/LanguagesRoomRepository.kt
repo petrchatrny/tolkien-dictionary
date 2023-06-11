@@ -26,4 +26,12 @@ class LanguagesRoomRepository(private val dao: LanguagesDao) : ILanguagesReposit
     override suspend fun delete(language: Language) {
         dao.delete(language = language)
     }
+
+    override suspend fun insertAll(languages: List<Language>) {
+        dao.insertAll(languages)
+    }
+
+    override suspend fun deleteDownloaded() {
+        dao.deleteDownloaded()
+    }
 }

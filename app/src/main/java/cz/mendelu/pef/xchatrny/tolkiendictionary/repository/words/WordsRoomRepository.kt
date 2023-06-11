@@ -53,4 +53,12 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
     override suspend fun delete(word: Word) {
         dao.delete(word = word)
     }
+
+    override suspend fun insertAll(words: List<Word>) {
+        dao.insertAll(words)
+    }
+
+    override suspend fun deleteDownloaded() {
+        dao.deleteDownloaded()
+    }
 }

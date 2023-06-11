@@ -11,4 +11,8 @@ interface ISourcesRepository {
     suspend fun update(source: Source)
 
     suspend fun delete(source: Source)
+
+    suspend fun insertAll(sources: List<Source>)
+
+    suspend fun deleteDownloaded()
 }

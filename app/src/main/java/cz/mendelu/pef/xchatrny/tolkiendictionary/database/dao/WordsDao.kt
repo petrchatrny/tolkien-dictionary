@@ -58,4 +58,10 @@ interface WordsDao {
 
     @Delete
     suspend fun delete(word: Word)
+
+    @Insert
+    suspend fun insertAll(words: List<Word>)
+
+    @Query("DELETE FROM words WHERE added_by_admin = 1")
+    suspend fun deleteDownloaded()
 }

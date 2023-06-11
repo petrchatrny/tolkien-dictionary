@@ -20,4 +20,12 @@ class SourcesRoomRepository(private val dao: SourcesDao) : ISourcesRepository {
     override suspend fun delete(source: Source) {
         dao.delete(source = source)
     }
+
+    override suspend fun insertAll(sources: List<Source>) {
+        dao.insertAll(sources)
+    }
+
+    override suspend fun deleteDownloaded() {
+        dao.deleteAll()
+    }
 }

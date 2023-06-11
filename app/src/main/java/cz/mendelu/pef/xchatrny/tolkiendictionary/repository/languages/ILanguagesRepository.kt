@@ -15,4 +15,8 @@ interface ILanguagesRepository {
     suspend fun update(language: Language)
 
     suspend fun delete(language: Language)
+
+    suspend fun insertAll(languages: List<Language>)
+
+    suspend fun deleteDownloaded()
 }

@@ -12,11 +12,11 @@ data class Source(
     val id: UUID = UUID.randomUUID(),
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "url")
-    val url: String,
+    var url: String,
 
     @ColumnInfo(name = "added_by_admin")
-    val addedByAdmin: Boolean,
+    val addedByAdmin: Boolean = false,
 )

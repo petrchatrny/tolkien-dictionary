@@ -28,4 +28,10 @@ interface LanguagesDao {
 
     @Delete
     suspend fun delete(language: Language)
+
+    @Insert
+    suspend fun insertAll(languages: List<Language>)
+
+    @Query("DELETE FROM languages")
+    suspend fun deleteDownloaded()
 }

@@ -16,5 +16,5 @@ data class Language(
     val name: String,
 
     @ColumnInfo(name = "icon")
-    val icon: Bitmap,
+    val icon: Bitmap?,
 )

@@ -24,4 +24,8 @@ interface IWordsRepository {
     suspend fun update(word: Word)
 
     suspend fun delete(word: Word)
+
+    suspend fun insertAll(words: List<Word>)
+
+    suspend fun deleteDownloaded()
 }
