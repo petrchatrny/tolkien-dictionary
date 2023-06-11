@@ -36,4 +36,8 @@
     <string name="unknown">neznámé</string>
     <string name="administrator">administrátor</string>
     <string name="user">uživatel</string>
+    <string name="downloading_done">Stahování dokončeno</string>
+    <string name="checking_dictionaries">Kontrola slovníků</string>
+    <string name="dictionaries_download_failed_check_connection">Nezdařilo se prvotní stažení slovníků. Zkontrolujte své internetové připojení.</string>
+    <string name="repeat_download">Opakovat stažení</string>
 </resources>
