@@ -42,8 +42,9 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.relations.WordWithLanguageAndSource
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.INavigationRouter
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.BackArrowScreen
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.URILink
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.lists.TableRow
-import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.theme.annatar
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.theme.tengwar
 import cz.mendelu.pef.xchatrny.tolkiendictionary.util.DateUtils
 import org.koin.androidx.compose.getViewModel
 import java.util.UUID
@@ -186,8 +187,7 @@ fun WordDetailScreenContent(
 
                 // TABLE
                 Column(
-                    modifier = Modifier
-                        .padding(horizontal = 32.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 32.dp, vertical = 8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
@@ -229,9 +229,10 @@ fun WordDetailScreenContent(
                     // SOURCE
                     detailedWord.source?.let { source ->
                         TableRow(title = stringResource(R.string.source_is)) {
-                            Text(
+                            URILink(
                                 modifier = it,
-                                text = source.name
+                                text = source.name,
+                                uri = source.url
                             )
                         }
                     }
