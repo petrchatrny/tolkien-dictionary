@@ -7,13 +7,15 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.architecture.BaseViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.DictionaryType
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguagesRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.settings.ISettingsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.IWordsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.SearchCriteria
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val languagesRepository: ILanguagesRepository,
-    private val wordsRepository: IWordsRepository
+    private val wordsRepository: IWordsRepository,
+    private val settingsRepository: ISettingsRepository
 ) : BaseViewModel(), SearchActions {
     var uiState by mutableStateOf<SearchUIState>(SearchUIState.Init)
     var data = SearchData()
@@ -35,6 +37,12 @@ class SearchViewModel(
 
             // load words
             uiState = SearchUIState.Loading
+        }
+
+        launch {
+            settingsRepository.getFontSize().collect {
+                data.fontSize = it
+            }
         }
     }
 

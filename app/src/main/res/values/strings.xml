@@ -41,4 +41,16 @@
     <string name="dictionaries_download_failed_check_connection">Nezdařilo se prvotní stažení slovníků. Zkontrolujte své internetové připojení.</string>
     <string name="repeat_download">Opakovat stažení</string>
     <string name="do_tengwar_transcription">Provést transkripci překladu do Tengwaru</string>
+    <string name="appearance">Vzhled</string>
+    <string name="tengwar_font">Písmo pro Tengwar</string>
+    <string name="font_size">Velikost písma</string>
+    <string name="dark_mode">Tmavý režim</string>
+    <string name="about_app">O aplikaci</string>
+    <string name="version">Verze</string>
+    <string name="used_software_libs">Použité softwarové knihovny</string>
+    <string name="update_dictionaries">Aktualizace slovníků</string>
+    <string name="automatically_download_dictionaries">Automaticky stahovat nové verze slovníků</string>
+    <string name="small">malá</string>
+    <string name="middle">střední</string>
+    <string name="big">velká</string>
 </resources>

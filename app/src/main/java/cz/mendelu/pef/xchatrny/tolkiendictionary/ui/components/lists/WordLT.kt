@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
+import cz.mendelu.pef.xchatrny.tolkiendictionary.datastore.entities.FontSize
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -28,7 +29,8 @@ fun WordLT(
     inverse: Boolean = false,
     onClick: () -> Unit = {},
     onSwipeLeftToRight: () -> Unit = {},
-    onSwipeRightToLeft: () -> Unit = {}
+    onSwipeRightToLeft: () -> Unit = {},
+    fontSize: FontSize
 ) {
     val saveAction = SwipeAction(
         icon = rememberVectorPainter(image = Icons.Default.Bookmark),
@@ -63,7 +65,7 @@ fun WordLT(
                     color = MaterialTheme.colorScheme.onSurface,
                     fontFamily = MaterialTheme.typography.bodyLarge.fontFamily,
                     lineHeight = MaterialTheme.typography.bodyLarge.lineHeight,
-                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                    fontSize = fontSize.size,
                     fontWeight = MaterialTheme.typography.bodyLarge.fontWeight
                 )
             },

@@ -3,13 +3,23 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.ui.theme
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.settings.ISettingsRepository
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.get
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -80,23 +90,49 @@ fun TolkienDictionaryTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (!useDarkTheme) {
-        LightColors
-    } else {
-        DarkColors
-    }
+    val coroutineScope = rememberCoroutineScope()
+    val settingsRepository: ISettingsRepository = get()
+
+    val colors = remember { mutableStateOf(DarkColors) }
 
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colors.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = useDarkTheme
+            window.statusBarColor = colors.value.primary.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars =
+                colors.value == DarkColors
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        coroutineScope.launch {
+            settingsRepository.getIsInDarkMode().collect {
+                colors.value = if (it) {
+                    DarkColors
+                } else {
+                    LightColors
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        coroutineScope.launch {
+            settingsRepository.getTengwarFont().collect {
+                tengwar = TextStyle(
+                    fontFamily = it.fontFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 18.sp,
+                    lineHeight = 24.sp,
+                    letterSpacing = 0.5.sp
+                )
+            }
         }
     }
 
     MaterialTheme(
-        colorScheme = colors,
+        colorScheme = colors.value,
         typography = Typography,
         content = content
     )

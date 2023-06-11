@@ -154,7 +154,8 @@ fun SearchScreenContent(
                         onClick = { navigation.navigateToWordDetailScreen(id = word.id) },
                         onSwipeLeftToRight = { actions.toggleWordBookmark(word) },
                         onSwipeRightToLeft = { navigation.navigateToAddEditWordScreen(word.id) },
-                        inverse = data.selectedDictionaryType?.criterium == SearchCriteria.CZECH_MEANING
+                        inverse = data.selectedDictionaryType?.criterium == SearchCriteria.CZECH_MEANING,
+                        fontSize = data.fontSize
                     )
                     Divider(color = MaterialTheme.colorScheme.outlineVariant)
                 }

@@ -48,29 +48,10 @@ val Typography = Typography(
     */
 )
 
-val Typography.annatar: TextStyle
-    get() = TextStyle(
-        fontFamily = annatarFont,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-
-val Typography.eldamar: TextStyle
-    get() = TextStyle(
-        fontFamily = eldamarFont,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-
-val Typography.parmaite: TextStyle
-    get() = TextStyle(
-        fontFamily = parmaiteFont,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
+var tengwar = TextStyle(
+    fontFamily = annatarFont,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp,
+    lineHeight = 24.sp,
+    letterSpacing = 0.5.sp
+)

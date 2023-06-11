@@ -204,8 +204,11 @@ fun WordDetailScreenContent(
                         Text(
                             modifier = it,
                             text = word.tengwar ?: stringResource(R.string.unknown),
-                            fontFamily = if (word.tengwar != null) MaterialTheme.typography.annatar.fontFamily
-                                         else MaterialTheme.typography.bodyLarge.fontFamily
+                            fontFamily = if (word.tengwar != null) tengwar.fontFamily
+                                         else MaterialTheme.typography.bodyLarge.fontFamily,
+                            fontSize = tengwar.fontSize,
+                            fontWeight = tengwar.fontWeight,
+                            fontStyle = tengwar.fontStyle
                         )
                     }
 
