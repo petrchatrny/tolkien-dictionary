@@ -15,8 +15,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -71,7 +73,18 @@ fun WordDetailScreen(
 
     BackArrowScreen(
         onBackClick = { navigation.navigateBack() },
-        drawFullScreenContent = true
+        drawFullScreenContent = true,
+        floatingActionButton = {
+            word?.let {
+                if (!it.word.addedByAdmin) {
+                    ExtendedFloatingActionButton(
+                        onClick = { navigation.navigateToAddEditWordScreen(it.word.id) },
+                        icon = { Icon(Icons.Default.Edit, null) },
+                        text = { Text(text = stringResource(id = R.string.edit_word)) },
+                    )
+                }
+            }
+        }
     ) {
         WordDetailScreenContent(it, word, viewModel)
     }

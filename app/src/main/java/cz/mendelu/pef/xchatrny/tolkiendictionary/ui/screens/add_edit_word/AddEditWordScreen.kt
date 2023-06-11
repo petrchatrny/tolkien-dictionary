@@ -2,7 +2,6 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.add_edit_word
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -155,8 +154,7 @@ fun AddEditWordContent(
         Row(
             modifier = Modifier
                 .padding(bottom = 48.dp)
-                .fillMaxWidth()
-                .clickable {},
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -169,7 +167,7 @@ fun AddEditWordContent(
             )
             Spacer(Modifier.width(8.dp))
 
-            Text(text = "Provést transkripci překladu do Tengwaru")
+            Text(text = stringResource(R.string.do_tengwar_transcription))
         }
 
         if (isEdit) {

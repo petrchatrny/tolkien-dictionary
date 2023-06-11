@@ -38,7 +38,7 @@ fun SearchTopBar(
 ) {
     var isSearchVisible by remember { mutableStateOf(false) }
 
-    if (isSearchVisible) {
+    if (isSearchVisible || query != "") {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()

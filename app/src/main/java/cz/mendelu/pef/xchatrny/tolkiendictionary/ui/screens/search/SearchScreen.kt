@@ -124,7 +124,8 @@ fun SearchScreenContent(
         ) {
             TextSpinner(
                 items = data.dictionaryTypes.map { it.getDisplayName(stringResource(R.string.czech)) },
-                selectedItem = data.selectedDictionaryType?.getDisplayName(stringResource(R.string.czech)) ?: "",
+                selectedItem = data.selectedDictionaryType?.getDisplayName(stringResource(R.string.czech))
+                    ?: "",
                 onSelectedItemChanged = {
                     actions.onSelectedDictionaryTypeChange(data.dictionaryTypes[it])
                 }
@@ -146,17 +147,16 @@ fun SearchScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                words.forEach { word ->
-                    item(key = word.id) {
-                        WordLT(
-                            word = word,
-                            onClick = { navigation.navigateToWordDetailScreen(id = word.id) },
-                            onSwipeLeftToRight = { actions.toggleWordBookmark(word) },
-                            onSwipeRightToLeft = { navigation.navigateToAddEditWordScreen(word.id) },
-                            inverse = data.selectedDictionaryType?.criterium == SearchCriteria.CZECH_MEANING
-                        )
-                        Divider(color = MaterialTheme.colorScheme.outlineVariant)
-                    }
+                items(count = words.size, key = { words[it].id }) { index ->
+                    val word = words[index]
+                    WordLT(
+                        word = word,
+                        onClick = { navigation.navigateToWordDetailScreen(id = word.id) },
+                        onSwipeLeftToRight = { actions.toggleWordBookmark(word) },
+                        onSwipeRightToLeft = { navigation.navigateToAddEditWordScreen(word.id) },
+                        inverse = data.selectedDictionaryType?.criterium == SearchCriteria.CZECH_MEANING
+                    )
+                    Divider(color = MaterialTheme.colorScheme.outlineVariant)
                 }
             }
         } else {

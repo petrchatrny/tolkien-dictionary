@@ -40,4 +40,5 @@
     <string name="checking_dictionaries">Kontrola slovníků</string>
     <string name="dictionaries_download_failed_check_connection">Nezdařilo se prvotní stažení slovníků. Zkontrolujte své internetové připojení.</string>
     <string name="repeat_download">Opakovat stažení</string>
+    <string name="do_tengwar_transcription">Provést transkripci překladu do Tengwaru</string>
 </resources>

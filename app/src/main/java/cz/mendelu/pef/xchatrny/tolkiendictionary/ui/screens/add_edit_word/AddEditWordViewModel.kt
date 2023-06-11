@@ -73,11 +73,17 @@ class AddEditWordViewModel(
 
             launch {
                 if (data.doTranscription) {
-                    tengwarRepository.getTranscription(data.word.translation).collect {
-                        data.word.tengwar = it
+                    try {
+                        tengwarRepository.getTranscription(data.word.translation).collect {
+                            data.word.tengwar = it
+                            performSave(update)
+                        }
+                    } catch (e: Exception) {
+                        data.word.tengwar = null
                         performSave(update)
                     }
                 } else {
+                    data.word.tengwar = null
                     performSave(update)
                 }
             }

@@ -27,6 +27,7 @@ fun BackArrowScreen(
     appBarTitle: String = "",
     onBackClick: (() -> Unit)? = null,
     drawFullScreenContent: Boolean = false,
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -58,7 +59,8 @@ fun BackArrowScreen(
                     navigationIconContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
-        }
+        },
+        floatingActionButton = floatingActionButton
     ) {
         if (!drawFullScreenContent) {
             LazyColumn(modifier = Modifier.padding(it)) {
