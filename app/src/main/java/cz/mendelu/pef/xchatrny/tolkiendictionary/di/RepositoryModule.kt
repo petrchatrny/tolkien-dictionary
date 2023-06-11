@@ -12,6 +12,8 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguages
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.LanguagesRoomRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.session.ISessionRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.session.SessionDataStoreRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.settings.ISettingsRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.settings.SettingsDataStoreRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.ISourcesRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.SourcesRoomRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.ITengwarRepository
@@ -47,10 +49,15 @@ val repositoryModule = module {
         return SessionDataStoreRepository(context)
     }
 
+    fun provideSettingsRepository(context: Context): ISettingsRepository {
+        return SettingsDataStoreRepository(context)
+    }
+
     single { provideWordsRepository(get()) }
     single { provideLanguagesRepository(get()) }
     single { provideSourcesRepository(get()) }
     single { provideTengwarRepository(get()) }
     single { provideDictionaryRepository(get()) }
     single { provideSessionRepository(androidContext()) }
+    single { provideSettingsRepository(androidContext()) }
 }
