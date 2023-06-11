@@ -20,4 +20,6 @@ object DateUtils {
 
         return format.format(calendar.time)
     }
+
+    fun getCurrentUnixTime(): Long = Calendar.getInstance().timeInMillis
 }

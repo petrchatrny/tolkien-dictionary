@@ -1,5 +1,6 @@
 package cz.mendelu.pef.xchatrny.tolkiendictionary.di
 
+import android.content.Context
 import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.DictionaryApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.TengwarApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.LanguagesDao
@@ -9,12 +10,15 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.dictionaries.Diction
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.dictionaries.IDictionaryRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguagesRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.LanguagesRoomRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.session.ISessionRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.session.SessionDataStoreRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.ISourcesRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.SourcesRoomRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.ITengwarRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.TengwarTencendilRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.IWordsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.WordsRoomRepository
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -39,9 +43,14 @@ val repositoryModule = module {
         return DictionaryTolkienApiRepository(api)
     }
 
+    fun provideSessionRepository(context: Context): ISessionRepository {
+        return SessionDataStoreRepository(context)
+    }
+
     single { provideWordsRepository(get()) }
     single { provideLanguagesRepository(get()) }
     single { provideSourcesRepository(get()) }
     single { provideTengwarRepository(get()) }
     single { provideDictionaryRepository(get()) }
+    single { provideSessionRepository(androidContext()) }
 }
