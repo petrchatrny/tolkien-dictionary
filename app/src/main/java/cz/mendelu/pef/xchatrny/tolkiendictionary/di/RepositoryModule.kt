@@ -1,9 +1,12 @@
 package cz.mendelu.pef.xchatrny.tolkiendictionary.di
 
+import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.DictionaryApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.TengwarApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.LanguagesDao
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.SourcesDao
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.WordsDao
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.dictionaries.DictionaryTolkienApiRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.dictionaries.IDictionaryRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguagesRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.LanguagesRoomRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.ISourcesRepository
@@ -32,8 +35,13 @@ val repositoryModule = module {
         return TengwarTencendilRepository(api)
     }
 
+    fun provideDictionaryRepository(api: DictionaryApi): IDictionaryRepository {
+        return DictionaryTolkienApiRepository(api)
+    }
+
     single { provideWordsRepository(get()) }
     single { provideLanguagesRepository(get()) }
     single { provideSourcesRepository(get()) }
     single { provideTengwarRepository(get()) }
+    single { provideDictionaryRepository(get()) }
 }
