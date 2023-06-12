@@ -1,5 +1,6 @@
 package cz.mendelu.pef.xchatrny.tolkiendictionary.di
 
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.dialogs.choose_source.ChooseSourceViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.add_edit_word.AddEditWordViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.loading.LoadingViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.saved_words.SavedWordsViewModel
@@ -13,7 +14,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { AddEditWordViewModel(get(), get(), get()) }
+    viewModel { AddEditWordViewModel(get(), get(), get(), get()) }
     viewModel { SearchViewModel(get(), get(), get()) }
     viewModel { SavedWordsViewModel(get()) }
     viewModel { WordDetailViewModel(get()) }
@@ -21,5 +22,5 @@ val viewModelModule = module {
     viewModel { SettingsViewModel(get()) }
     viewModel { SoftwareLibrariesViewModel() }
     viewModel { SourcesViewModel(get()) }
-
+    viewModel { ChooseSourceViewModel(get()) }
 }

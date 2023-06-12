@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FormatQuote
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,8 +30,10 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.navigation.INavigationRouter
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.BackArrowScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.LoadingButton
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.PickerField
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.SelectField
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.TextField
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.dialogs.choose_source.ChooseSourceDialog
 import org.koin.androidx.compose.getViewModel
 import java.util.UUID
 
@@ -47,7 +51,7 @@ fun AddEditWordScreen(
             AddEditWordUIState.Default -> {}
 
             AddEditWordUIState.Loading -> {
-                viewModel.initData()
+                viewModel.initWord()
             }
 
             AddEditWordUIState.Saving -> {}
@@ -115,6 +119,8 @@ fun AddEditWordContent(
     data: AddEditWordData,
     actions: AddEditWordActions
 ) {
+    var isChooseSourceDialogVisible by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -125,7 +131,7 @@ fun AddEditWordContent(
             value = data.word.czechMeaning,
             onValueChange = {
                 data.word.czechMeaning = it
-                actions.onWordChange(data.word)
+                actions.onDataChange(data)
             },
             error = data.errorCzechMeaning
         )
@@ -135,7 +141,7 @@ fun AddEditWordContent(
             value = data.word.translation,
             onValueChange = {
                 data.word.translation = it
-                actions.onWordChange(data.word)
+                actions.onDataChange(data)
             },
             error = data.errorTranslation
         )
@@ -145,11 +151,24 @@ fun AddEditWordContent(
             label = stringResource(R.string.language),
             items = data.selectableLanguages,
             selectedItem = data.selectedLanguage,
-            onSelectedItemChange = { actions.onLanguageChange(it) },
+            onSelectedItemChange = {
+                data.selectedLanguage = it
+                actions.onDataChange(data)
+            },
             error = data.errorLanguage
         )
 
-        // TODO picker for ChooseSourceDialog
+        PickerField(
+            modifier = Modifier.padding(bottom = 16.dp),
+            value = data.selectedSource?.value?.name ?: "",
+            label = stringResource(R.string.source_optional),
+            leadingIcon = Icons.Default.FormatQuote,
+            onClick = { isChooseSourceDialogVisible = true },
+            onClearClick = {
+                data.selectedSource = null
+                actions.onDataChange(data)
+            }
+        )
 
         Row(
             modifier = Modifier
@@ -195,6 +214,17 @@ fun AddEditWordContent(
                 text = stringResource(R.string.add)
             )
         }
+
+        if (isChooseSourceDialogVisible) {
+            ChooseSourceDialog(
+                onSourceChosen = {
+                    data.selectedSource = it
+                    actions.onDataChange(data)
+                },
+                onDismiss = { isChooseSourceDialogVisible = false },
+                existingSources = data.selectableSources
+            )
+        }
     }
 }
 
@@ -206,10 +236,7 @@ private fun SubmitForm(
     navigation: INavigationRouter
 ) {
     LaunchedEffect(state) {
-        Toast.makeText(
-            context, message, Toast.LENGTH_SHORT
-        ).show()
-
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         navigation.navigateBack()
     }
 }

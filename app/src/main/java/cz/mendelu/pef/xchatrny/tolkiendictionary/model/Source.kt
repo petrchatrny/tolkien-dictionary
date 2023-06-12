@@ -15,7 +15,7 @@ data class Source(
     var name: String,
 
     @ColumnInfo(name = "url")
-    var url: String,
+    var url: String?,
 
     @ColumnInfo(name = "added_by_admin")
     val addedByAdmin: Boolean = false,

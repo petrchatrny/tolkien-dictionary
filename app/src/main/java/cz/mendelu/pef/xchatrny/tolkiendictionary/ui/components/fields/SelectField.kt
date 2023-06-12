@@ -25,7 +25,7 @@ fun <T> SelectField(
     items: List<SelectFieldItem<T>>,
     selectedItem: SelectFieldItem<T>? = null,
     onSelectedItemChange: (item: SelectFieldItem<T>) -> Unit,
-    label: String,
+    label: String = "",
     error: Int? = null
 ) {
     var isExpanded by remember { mutableStateOf(false) }

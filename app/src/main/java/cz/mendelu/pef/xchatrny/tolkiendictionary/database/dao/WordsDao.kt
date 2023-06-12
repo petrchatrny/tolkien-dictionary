@@ -36,11 +36,11 @@ interface WordsDao {
 
     @Transaction
     @Query("SELECT * FROM words WHERE id_word=:id")
-    suspend fun getWordWithSourceById(id: UUID): WordWithSource
+    suspend fun getWordWithSourceById(id: UUID): WordWithSource?
 
     @Transaction
     @Query("SELECT * FROM words WHERE id_word=:id")
-    fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource>
+    fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource?>
 
     @Transaction
     @Query( "SELECT * " +

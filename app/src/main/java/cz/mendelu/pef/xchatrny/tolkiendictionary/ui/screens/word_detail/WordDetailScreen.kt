@@ -231,12 +231,18 @@ fun WordDetailScreenContent(
 
                     // SOURCE
                     detailedWord.source?.let { source ->
-                        TableRow(title = stringResource(R.string.source_is)) {
-                            URILink(
-                                modifier = it,
-                                text = source.name,
-                                uri = source.url
-                            )
+                        TableRow(title = stringResource(R.string.source_is)) { modifier ->
+                            if (source.url == null) {
+                                Text(text = source.name)
+                            } else {
+                                source.url?.let {
+                                    URILink(
+                                        modifier = modifier,
+                                        text = source.name,
+                                        uri = it
+                                    )
+                                }
+                            }
                         }
                     }
                 }

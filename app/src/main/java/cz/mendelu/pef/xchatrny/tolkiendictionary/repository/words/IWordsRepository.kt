@@ -13,9 +13,9 @@ interface IWordsRepository {
 
     fun getAll(query: String, language: Language, criteria: SearchCriteria): Flow<List<Word>>
 
-    suspend fun getWordWithSourceById(id: UUID): WordWithSource
+    suspend fun getWordWithSourceById(id: UUID): WordWithSource?
 
-    fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource>
+    fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource?>
 
     fun getBookmarkedWords(): Flow<List<WordWithLanguage>>
 

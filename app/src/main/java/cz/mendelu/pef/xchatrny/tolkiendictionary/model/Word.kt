@@ -8,13 +8,13 @@ import java.util.UUID
 @Entity(tableName = "words")
 data class Word(
     @PrimaryKey
-    @ColumnInfo("id_word")
+    @ColumnInfo(name = "id_word")
     val id: UUID = UUID.randomUUID(),
 
-    @ColumnInfo(name = "czech_meaning")
+    @ColumnInfo(name = "czech_meaning", collate = ColumnInfo.NOCASE)
     var czechMeaning: String,
 
-    @ColumnInfo(name = "translation")
+    @ColumnInfo(name = "translation", collate = ColumnInfo.NOCASE)
     var translation: String,
 
     @ColumnInfo(name = "tengwar")
@@ -33,5 +33,5 @@ data class Word(
     var idLanguage: UUID? = null,
 
     @ColumnInfo(name = "id_source")
-    val idSource: UUID? = null
+    var idSource: UUID? = null
 )

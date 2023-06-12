@@ -18,7 +18,11 @@ fun URILink(
 
     Text(
         modifier = modifier.clickable {
-            uriHandler.openUri(uri)
+            try {
+                uriHandler.openUri(uri)
+            } catch (ignored: Exception) {
+
+            }
         },
         text = text,
         color = if (!keepDefaultColor) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onSurface

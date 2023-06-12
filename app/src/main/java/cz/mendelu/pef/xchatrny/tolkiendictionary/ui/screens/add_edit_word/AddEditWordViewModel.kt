@@ -5,18 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.architecture.BaseViewModel
-import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Source
-import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.languages.ILanguagesRepository
+import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.sources.ISourcesRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.ITengwarRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.IWordsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.fields.SelectFieldItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 class AddEditWordViewModel(
     private val wordsRepository: IWordsRepository,
     private val languagesRepository: ILanguagesRepository,
+    private val sourcesRepository: ISourcesRepository,
     private val tengwarRepository: ITengwarRepository
 ) : BaseViewModel(), AddEditWordActions {
     var wordId: UUID? = null
@@ -24,41 +27,43 @@ class AddEditWordViewModel(
     var uiState by mutableStateOf<AddEditWordUIState>(AddEditWordUIState.Loading)
     var data: AddEditWordData = AddEditWordData()
 
-    fun initData() {
+    init {
         launch {
-            // load languages
             val languages = languagesRepository.getAll()
             data.selectableLanguages = languages.map { lang ->
-                SelectFieldItem(lang.name, lang.id)
+                SelectFieldItem(lang.name, lang)
             }
+        }
 
-            // load word data
-            wordId?.let { uuid ->
-                val wordWithSource = wordsRepository.getWordWithSourceById(id = uuid)
-                data.word = wordWithSource.word
-                data.selectedLanguage = getSelectableLanguage(wordWithSource.word.idLanguage)
-                data.source = wordWithSource.source
+        launch {
+            sourcesRepository.getAll().collect {
+                data.selectableSources.clear()
+                data.selectableSources.addAll(it.map { source ->
+                    SelectFieldItem(source.name, source)
+                })
             }
-
-            uiState = AddEditWordUIState.Default
         }
     }
 
-    override fun onWordChange(word: Word) {
-        data.word = word
-        uiState = AddEditWordUIState.DataChanged
-    }
+    fun initWord() {
+        launch {
+            wordId?.let { id ->
+                wordsRepository
+                    .getWordWithLanguageAndSourceById(id)
+                    .collect { relation ->
+                        relation?.let {
+                            data.word = it.word
+                            data.selectedLanguage =
+                                SelectFieldItem(relation.language.name, relation.language)
 
-    override fun onSourceChange(source: Source?) {
-        data.source = source
-        uiState = AddEditWordUIState.DataChanged
+                            relation.source?.let { source ->
+                                data.selectedSource = SelectFieldItem(source.name, source)
+                            }
+                        }
+                    }
+            }
+        }
     }
-
-    override fun onLanguageChange(language: SelectFieldItem<UUID>?) {
-        data.selectedLanguage = language
-        uiState = AddEditWordUIState.DataChanged
-    }
-
     override fun onDataChange(data: AddEditWordData) {
         this.data = data
         uiState = AddEditWordUIState.DataChanged
@@ -69,23 +74,25 @@ class AddEditWordViewModel(
 
         if (isValid) {
             uiState = AddEditWordUIState.Saving
-            data.word.idLanguage = data.selectedLanguage?.value
+
+            // set language (it is assumed that after validation the language cannot be null)
+            data.word.idLanguage = data.selectedLanguage?.value?.id
+
+            // set source
+            data.word.idSource = data.selectedSource?.value?.id
 
             launch {
-                if (data.doTranscription) {
+                // get tengwar from API and set it to word
+                data.word.tengwar = withContext(Dispatchers.IO) {
                     try {
-                        tengwarRepository.getTranscription(data.word.translation).collect {
-                            data.word.tengwar = it
-                            performSave(update)
-                        }
-                    } catch (e: Exception) {
-                        data.word.tengwar = null
-                        performSave(update)
+                        tengwarRepository.getTranscription(data.word.translation).first()
+                    } catch (ignored: Exception) {
+                        null
                     }
-                } else {
-                    data.word.tengwar = null
-                    performSave(update)
                 }
+
+                // save to db
+                performSave(update)
             }
         } else {
             uiState = AddEditWordUIState.ValidationError
@@ -133,11 +140,4 @@ class AddEditWordViewModel(
 
         return isValid
     }
-
-    private fun getSelectableLanguage(uuid: UUID?): SelectFieldItem<UUID>? {
-        return data.selectableLanguages.find {
-            it.value == uuid
-        }
-    }
-
 }
