@@ -56,5 +56,6 @@ fun SavedWordLT(
                     Text(text = word.language.name)
                 }
             )
-        })
+        }
+    )
 }

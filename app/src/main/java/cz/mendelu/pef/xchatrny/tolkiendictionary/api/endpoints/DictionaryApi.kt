@@ -11,5 +11,5 @@ interface DictionaryApi {
     suspend fun downloadDictionary(): DictionaryDTO
 
     @GET("dictionaries/sync")
-    suspend fun syncDictionary(@Query("lastSyncDate") lastSyncDate: Long?): DictionarySyncDTO
+    suspend fun syncDictionary(@Query("lastSync") lastSyncDate: Long?): DictionarySyncDTO
 }

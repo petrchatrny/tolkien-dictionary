@@ -75,7 +75,7 @@ fun LoadingScreenContent(data: LoadingData, state: LoadingUIState, actions: Load
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center,
-            lineHeight = MaterialTheme.typography.headlineLarge.lineHeight
+            lineHeight = MaterialTheme.typography.headlineMedium.lineHeight
         )
 
         if (state == LoadingUIState.NetworkError) {
@@ -88,14 +88,14 @@ fun LoadingScreenContent(data: LoadingData, state: LoadingUIState, actions: Load
             )
         } else {
             Image(
-                modifier = Modifier.padding(top = 40.dp, bottom = 40.dp),
+                modifier = Modifier.padding(top = 35.dp, bottom = 35.dp),
                 painter = painterResource(id = R.drawable.bilbo),
                 contentDescription = null
             )
         }
 
         Text(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(16.dp),
             text = stringResource(id = data.description),
             color = if (data.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center

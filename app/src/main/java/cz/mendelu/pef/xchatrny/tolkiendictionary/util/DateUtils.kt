@@ -21,5 +21,5 @@ object DateUtils {
         return format.format(calendar.time)
     }
 
-    fun getCurrentUnixTime(): Long = Calendar.getInstance().timeInMillis
+    fun getCurrentUnixTime(): Long = Calendar.getInstance().timeInMillis / 1000
 }

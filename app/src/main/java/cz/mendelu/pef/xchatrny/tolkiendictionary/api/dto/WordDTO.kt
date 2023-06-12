@@ -20,7 +20,7 @@ data class WordDTO(
     var tengwar: String?,
 
     @Json(name = "createdAt")
-    var createdAt: String,
+    var createdAt: Long,
 
     @Json(name = "languageId")
     var languageId: String,
@@ -35,7 +35,7 @@ data class WordDTO(
             translation = translation,
             tengwar = tengwar,
             addedByAdmin = true,
-            creationDate = 0,
+            creationDate = createdAt,
             idLanguage = UUID.fromString(languageId),
             idSource = UUID.fromString(sourceId)
         )

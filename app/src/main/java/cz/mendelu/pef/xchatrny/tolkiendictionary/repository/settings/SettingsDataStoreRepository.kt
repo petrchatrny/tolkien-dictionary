@@ -18,7 +18,7 @@ class SettingsDataStoreRepository(private val context: Context) : ISettingsRepos
         return context.dataStore.data
             .catch { throw it }
             .map { prefs ->
-                val isAutoUpdateOn = prefs[key] ?: false
+                val isAutoUpdateOn = prefs[key] ?: true
                 isAutoUpdateOn
             }
     }
@@ -55,7 +55,7 @@ class SettingsDataStoreRepository(private val context: Context) : ISettingsRepos
         return context.dataStore.data
             .catch { throw it }
             .map { prefs ->
-                val fontSize = FontSize.valueOf(prefs[key] ?: FontSize.MIDDLE.name)
+                val fontSize = FontSize.valueOf(prefs[key] ?: FontSize.SMALL.name)
                 fontSize
             }
     }

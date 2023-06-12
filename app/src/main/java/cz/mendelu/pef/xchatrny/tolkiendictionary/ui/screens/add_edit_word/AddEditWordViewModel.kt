@@ -83,11 +83,15 @@ class AddEditWordViewModel(
 
             launch {
                 // get tengwar from API and set it to word
-                data.word.tengwar = withContext(Dispatchers.IO) {
-                    try {
-                        tengwarRepository.getTranscription(data.word.translation).first()
-                    } catch (ignored: Exception) {
-                        null
+                data.word.tengwar = null
+
+                if (data.doTranscription) {
+                    data.word.tengwar = withContext(Dispatchers.IO) {
+                        try {
+                            tengwarRepository.getTranscription(data.word.translation).first()
+                        } catch (ignored: Exception) {
+                            null
+                        }
                     }
                 }
 

@@ -22,9 +22,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "DICTIONARY_API", "\"https://tolkien-api.onrender.com/api/\""
+            buildConfigField "String", "TENCENDIL_API", "\"https://www.tecendil.com\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "DICTIONARY_API", "\"https://tolkien-api.onrender.com/api/\""
+            buildConfigField "String", "TENCENDIL_API", "\"https://www.tecendil.com\""
+
         }
     }
     compileOptions {

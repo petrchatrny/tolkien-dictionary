@@ -17,7 +17,7 @@ data class SourceDTO(
     var url: String,
 
     @Json(name = "createdAt")
-    var createdAt: String
+    var createdAt: Long
 ) {
     fun toSource(): Source {
         return Source(

@@ -123,7 +123,7 @@ fun SettingsScreenContent(
         )
 
         TextPreference(
-            title = stringResource(R.string.used_software_libs),
+            title = stringResource(R.string.used_software_libraries),
             trailingContent = {
                 Icon(imageVector = Icons.Default.ArrowRight, contentDescription = null)
             },
