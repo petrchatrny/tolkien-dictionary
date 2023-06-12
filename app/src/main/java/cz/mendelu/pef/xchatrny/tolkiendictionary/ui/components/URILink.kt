@@ -11,7 +11,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 fun URILink(
     modifier: Modifier = Modifier,
     text: String,
-    uri: String
+    uri: String,
+    keepDefaultColor: Boolean = false
 ) {
     val uriHandler = LocalUriHandler.current
 
@@ -20,6 +21,6 @@ fun URILink(
             uriHandler.openUri(uri)
         },
         text = text,
-        color = MaterialTheme.colorScheme.secondary
+        color = if (!keepDefaultColor) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onSurface
     )
 }

@@ -54,4 +54,9 @@
     <string name="middle">střední</string>
     <string name="big">velká</string>
     <string name="used_software_libraries">Použité softwarové knihovny</string>
+    <string name="images">Obrázky</string>
+    <string name="words">Slovíčka</string>
+    <string name="no_words_sources">Žádné zdroje slovíček</string>
+    <string name="user_added_sources">Uživatelem přidané zdroje</string>
+    <string name="no_user_added_sources">Žádné uživatelem přidané zdroje</string>
 </resources>

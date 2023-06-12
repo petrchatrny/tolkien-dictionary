@@ -33,7 +33,7 @@ fun TextPreference(
     PrefsListItem(
         text = {
             uri?.let {
-                URILink(text = title, uri = it)
+                URILink(text = title, uri = it, keepDefaultColor = true)
             } ?: run {
                 Text(title)
             }

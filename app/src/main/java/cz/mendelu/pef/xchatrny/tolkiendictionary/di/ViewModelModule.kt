@@ -6,6 +6,7 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.saved_words.SavedWor
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.search.SearchViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.settings.SettingsViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.software_libraries.SoftwareLibrariesViewModel
+import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.sources.SourcesViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.word_detail.WordDetailViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -19,5 +20,6 @@ val viewModelModule = module {
     viewModel { LoadingViewModel(get(), get(), get(), get(), get()) }
     viewModel { SettingsViewModel(get()) }
     viewModel { SoftwareLibrariesViewModel() }
+    viewModel { SourcesViewModel(get()) }
 
 }
