@@ -18,6 +18,9 @@ interface WordsDao {
     @Query("SELECT * FROM words")
     fun getAll(): Flow<List<Word>>
 
+    @Query("SELECT * FROM words WHERE id_word=:id")
+    suspend fun getOne(id: UUID): Word?
+
     @Query( "SELECT * " +
             "FROM words " +
             "WHERE czech_meaning LIKE '%' || :query || '%' " +
@@ -64,4 +67,7 @@ interface WordsDao {
 
     @Query("DELETE FROM words WHERE added_by_admin = 1")
     suspend fun deleteDownloaded()
+
+    @Query("DELETE FROM words WHERE id_word in (:idList)")
+    suspend fun deleteMultiple(idList: List<UUID>)
 }

@@ -8,6 +8,8 @@ import java.util.UUID
 interface ILanguagesRepository {
     suspend fun getAll(): List<Language>
 
+    suspend fun getOne(id: UUID): Language?
+
     fun getLanguageWithWords(id: UUID): Flow<List<LanguageWithWords>>
 
     suspend fun insert(language: Language)
@@ -19,4 +21,6 @@ interface ILanguagesRepository {
     suspend fun insertAll(languages: List<Language>)
 
     suspend fun deleteDownloaded()
+
+    suspend fun deleteMultiple(idList: List<UUID>)
 }

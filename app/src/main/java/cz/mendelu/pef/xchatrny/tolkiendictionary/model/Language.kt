@@ -13,7 +13,7 @@ data class Language(
     val id: UUID = UUID.randomUUID(),
 
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "icon")
     val icon: Bitmap?,

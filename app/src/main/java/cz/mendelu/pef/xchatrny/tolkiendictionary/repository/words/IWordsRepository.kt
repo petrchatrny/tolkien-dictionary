@@ -13,6 +13,8 @@ interface IWordsRepository {
 
     fun getAll(query: String, language: Language, criteria: SearchCriteria): Flow<List<Word>>
 
+    suspend fun getOne(id: UUID): Word?
+
     suspend fun getWordWithSourceById(id: UUID): WordWithSource?
 
     fun getWordWithLanguageAndSourceById(id: UUID): Flow<WordWithLanguageAndSource?>
@@ -28,4 +30,6 @@ interface IWordsRepository {
     suspend fun insertAll(words: List<Word>)
 
     suspend fun deleteDownloaded()
+
+    suspend fun deleteMultiple(idList: List<UUID>)
 }

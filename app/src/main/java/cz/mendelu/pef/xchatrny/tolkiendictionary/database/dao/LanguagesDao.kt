@@ -16,6 +16,9 @@ interface LanguagesDao {
     @Query("SELECT * FROM languages")
     suspend fun getAll(): List<Language>
 
+    @Query("SELECT * FROM languages WHERE id_language=:id")
+    suspend fun getOne(id: UUID): Language?
+
     @Transaction
     @Query("SELECT * FROM languages WHERE id_language=:id")
     fun getLanguageWithWords(id: UUID): Flow<List<LanguageWithWords>>
@@ -34,4 +37,7 @@ interface LanguagesDao {
 
     @Query("DELETE FROM languages")
     suspend fun deleteDownloaded()
+
+    @Query("DELETE FROM languages WHERE id_language in (:idList)")
+    suspend fun deleteMultiple(idList: List<UUID>)
 }

@@ -11,6 +11,10 @@ class LanguagesRoomRepository(private val dao: LanguagesDao) : ILanguagesReposit
         return dao.getAll()
     }
 
+    override suspend fun getOne(id: UUID): Language? {
+        return dao.getOne(id = id)
+    }
+
     override fun getLanguageWithWords(id: UUID): Flow<List<LanguageWithWords>> {
         return dao.getLanguageWithWords(id = id)
     }
@@ -28,10 +32,14 @@ class LanguagesRoomRepository(private val dao: LanguagesDao) : ILanguagesReposit
     }
 
     override suspend fun insertAll(languages: List<Language>) {
-        dao.insertAll(languages)
+        dao.insertAll(languages = languages)
     }
 
     override suspend fun deleteDownloaded() {
         dao.deleteDownloaded()
+    }
+
+    override suspend fun deleteMultiple(idList: List<UUID>) {
+        dao.deleteMultiple(idList = idList)
     }
 }

@@ -1,6 +1,7 @@
 package cz.mendelu.pef.xchatrny.tolkiendictionary.di
 
 import android.content.Context
+import cz.mendelu.pef.xchatrny.tolkiendictionary.TolkienDictionaryApp
 import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.DictionaryApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.api.endpoints.TengwarApi
 import cz.mendelu.pef.xchatrny.tolkiendictionary.database.dao.LanguagesDao
@@ -20,7 +21,6 @@ import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.ITengwarRepo
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.tengwar.TengwarTencendilRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.IWordsRepository
 import cz.mendelu.pef.xchatrny.tolkiendictionary.repository.words.WordsRoomRepository
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -58,6 +58,6 @@ val repositoryModule = module {
     single { provideSourcesRepository(get()) }
     single { provideTengwarRepository(get()) }
     single { provideDictionaryRepository(get()) }
-    single { provideSessionRepository(androidContext()) }
-    single { provideSettingsRepository(androidContext()) }
+    single { provideSessionRepository(TolkienDictionaryApp.appContext) }
+    single { provideSettingsRepository(TolkienDictionaryApp.appContext) }
 }

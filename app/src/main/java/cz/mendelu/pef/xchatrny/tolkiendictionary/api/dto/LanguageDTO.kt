@@ -2,6 +2,8 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.api.dto
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Language
+import java.util.UUID
 
 @JsonClass(generateAdapter = true)
 data class LanguageDTO(
@@ -30,5 +32,9 @@ data class LanguageDTO(
         var result = id.hashCode()
         result = 31 * result + name.hashCode()
         return result
+    }
+
+    fun toLanguage(): Language {
+        return Language(id = UUID.fromString(id), name = name, icon = null)
     }
 }

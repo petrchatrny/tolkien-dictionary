@@ -30,6 +30,10 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
         }
     }
 
+    override suspend fun getOne(id: UUID): Word? {
+        return dao.getOne(id)
+    }
+
     override suspend fun getWordWithSourceById(id: UUID): WordWithSource? {
         return dao.getWordWithSourceById(id = id)
     }
@@ -55,10 +59,14 @@ class WordsRoomRepository(private val dao: WordsDao) : IWordsRepository {
     }
 
     override suspend fun insertAll(words: List<Word>) {
-        dao.insertAll(words)
+        dao.insertAll(words = words)
     }
 
     override suspend fun deleteDownloaded() {
         dao.deleteDownloaded()
+    }
+
+    override suspend fun deleteMultiple(idList: List<UUID>) {
+        dao.deleteMultiple(idList = idList)
     }
 }
