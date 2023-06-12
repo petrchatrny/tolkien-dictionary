@@ -53,4 +53,5 @@
     <string name="small">malá</string>
     <string name="middle">střední</string>
     <string name="big">velká</string>
+    <string name="used_software_libraries">Použité softwarové knihovny</string>
 </resources>

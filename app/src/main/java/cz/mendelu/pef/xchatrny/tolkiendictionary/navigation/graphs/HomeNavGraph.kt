@@ -91,11 +91,7 @@ fun HomeNavGraph(
         }
 
         composable(Destination.SoftwareLibrariesScreen.route) {
-            BackArrowScreen(
-                appBarTitle = stringResource(R.string.software_libraries),
-                onBackClick = { navController.popBackStack() }) {
-                SoftwareLibrariesScreen()
-            }
+            SoftwareLibrariesScreen(navigation = navigation)
         }
     }
 }
