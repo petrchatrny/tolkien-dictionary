@@ -1,8 +1,7 @@
 package cz.mendelu.pef.xchatrny.tolkiendictionary.util
 
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 object DateUtils {
     private const val DATE_FORMAT_CS = "dd. MM. yyyy"
@@ -10,7 +9,7 @@ object DateUtils {
 
     fun getDateString(unixTime: Long): String {
         val calendar = Calendar.getInstance()
-        calendar.timeInMillis = unixTime
+        calendar.time = Date(unixTime * 1000)
 
         val format: SimpleDateFormat = if (LanguageUtils.isLanguageCzech()) {
             SimpleDateFormat(DATE_FORMAT_CS, Locale.GERMAN)

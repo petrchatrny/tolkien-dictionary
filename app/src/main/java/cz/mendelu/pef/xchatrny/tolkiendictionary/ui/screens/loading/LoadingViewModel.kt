@@ -88,7 +88,7 @@ class LoadingViewModel(
                         translation = it.translation,
                         tengwar = it.tengwar,
                         addedByAdmin = true,
-                        creationDate = 0,
+                        creationDate = it.createdAt,
                         idLanguage = UUID.fromString(it.languageId),
                         idSource = UUID.fromString(it.sourceId)
                     )
