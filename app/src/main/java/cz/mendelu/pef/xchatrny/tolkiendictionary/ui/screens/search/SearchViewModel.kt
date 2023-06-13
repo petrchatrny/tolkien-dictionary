@@ -3,6 +3,7 @@ package cz.mendelu.pef.xchatrny.tolkiendictionary.ui.screens.search
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import cz.mendelu.pef.xchatrny.tolkiendictionary.R
 import cz.mendelu.pef.xchatrny.tolkiendictionary.architecture.BaseViewModel
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.DictionaryType
 import cz.mendelu.pef.xchatrny.tolkiendictionary.model.Word
@@ -76,5 +77,22 @@ class SearchViewModel(
     override fun onSelectedDictionaryTypeChange(newDictionaryType: DictionaryType) {
         data.selectedDictionaryType = newDictionaryType
         uiState = SearchUIState.SelectedDictionaryTypeChange
+    }
+
+    override fun getWordCountLabel(count: Int): Int {
+        return when (count) {
+            0 -> {
+                R.string.word_zero
+            }
+            1 -> {
+                R.string.word_singular
+            }
+            in 1..4 -> {
+                R.string.word_prular
+            }
+            else -> {
+                R.string.word_prular_alternative
+            }
+        }
     }
 }

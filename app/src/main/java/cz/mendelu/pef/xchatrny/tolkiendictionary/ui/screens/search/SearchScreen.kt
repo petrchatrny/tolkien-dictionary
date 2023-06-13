@@ -135,7 +135,7 @@ fun SearchScreenContent(
                 onClick = {},
                 label = {
                     Text(
-                        text = "${data.wordsCount} slov", // TODO singular vs plural
+                        text = "${data.wordsCount} ${stringResource(id = actions.getWordCountLabel(data.wordsCount))}",
                         fontSize = MaterialTheme.typography.labelMedium.fontSize
                     )
                 },

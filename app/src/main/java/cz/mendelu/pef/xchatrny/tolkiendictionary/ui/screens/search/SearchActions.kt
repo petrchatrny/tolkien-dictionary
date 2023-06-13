@@ -8,4 +8,5 @@ interface SearchActions {
     fun toggleWordBookmark(word: Word)
     fun onSearchQueryChange(newQuery: String)
     fun onSelectedDictionaryTypeChange(newDictionaryType: DictionaryType)
+    fun getWordCountLabel(count: Int): Int
 }

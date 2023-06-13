@@ -60,4 +60,8 @@
     <string name="no_user_added_sources">Žádné uživatelem přidané zdroje</string>
     <string name="source_optional">Zdroj (nepovinné)</string>
     <string name="name">Název</string>
+    <string name="word_zero">slov</string>
+    <string name="word_singular">slovo</string>
+    <string name="word_prular">slova</string>
+    <string name="word_prular_alternative">slov</string>
 </resources>
