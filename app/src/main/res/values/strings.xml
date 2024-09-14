@@ -39,13 +39,14 @@
     <string name="checking_dictionaries">Dictionary checking</string>
     <string name="repeat_download">Repeat download</string>
     <string name="do_tengwar_transcription">Transcribe the translation into Tengwar</string>
+    <string name="dictionary_update">Dictionary updates</string>
     <string name="appearance">Appearance</string>
     <string name="tengwar_font">Font for Tengwar</string>
     <string name="font_size">Font size</string>
     <string name="dark_mode">Dark mode</string>
     <string name="about_app">About the app</string>
     <string name="version">Version</string>
-    <string name="update_dictionaries">Dictionary updates</string>
+    <string name="auto_update">Automatic updates</string>
     <string name="automatically_download_dictionaries">Automatically download new versions of dictionaries</string>
     <string name="small">small</string>
     <string name="middle">medium</string>
