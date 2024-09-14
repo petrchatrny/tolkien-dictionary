@@ -1,11 +1,11 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word
+package cz.procyon.tolkiendict.mobile.ui.screen.word_form
 
 import cz.procyon.tolkiendict.mobile.model.Language
 import cz.procyon.tolkiendict.mobile.model.Source
 import cz.procyon.tolkiendict.mobile.model.Word
 import cz.procyon.tolkiendict.mobile.ui.component.fields.SelectFieldItem
 
-class AddEditWordData {
+class WordFormData {
     var word: Word = Word(
         czechMeaning = "",
         translation = "",

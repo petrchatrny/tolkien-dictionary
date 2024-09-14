@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.procyon.tolkiendict.mobile.model.Source
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.ui.component.BackArrowScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.preferences.PrefGroup
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.preferences.TextPreference
@@ -22,7 +22,7 @@ import cz.procyon.tolkiendict.mobile.R
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SourcesScreen(navigation: INavigationRouter, viewModel: SourcesViewModel = getViewModel()) {
+fun SourcesScreen(navigation: NavigationRouter, viewModel: SourcesViewModel = getViewModel()) {
     val adminSources = remember { mutableStateListOf<Source>() }
     val userSources = remember { mutableStateListOf<Source>() }
 
@@ -58,7 +58,7 @@ fun SourcesScreen(navigation: INavigationRouter, viewModel: SourcesViewModel = g
 }
 
 @Composable
-fun SourcesScreenContent(
+private fun SourcesScreenContent(
     paddingValues: PaddingValues,
     adminSources: List<Source>,
     userSources: List<Source>

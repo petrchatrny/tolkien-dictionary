@@ -1,4 +1,4 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.software_libraries
+package cz.procyon.tolkiendict.mobile.ui.screen.software_lib
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,29 +10,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import cz.procyon.tolkiendict.mobile.R
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.ui.component.BackArrowScreen
 import cz.procyon.tolkiendict.mobile.ui.component.lists.SoftwareLibraryLT
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SoftwareLibrariesScreen(
-    navigation: INavigationRouter,
-    viewModel: SoftwareLibrariesViewModel = getViewModel()
+fun SoftwareLibsScreen(
+    navigation: NavigationRouter,
+    viewModel: SoftwareLibsViewModel = getViewModel()
 ) {
     BackArrowScreen(
         drawFullScreenContent = true,
         appBarTitle = stringResource(R.string.used_software_libraries),
         onBackClick = { navigation.navigateBack() }
     ) {
-        SoftwareLibrariesScreenContent(paddingValues = it, libraries = viewModel.libraries)
+        SoftwareLibsContent(paddingValues = it, libraries = viewModel.libraries)
     }
 }
 
 @Composable
-fun SoftwareLibrariesScreenContent(
+private fun SoftwareLibsContent(
     paddingValues: PaddingValues,
-    libraries: List<SoftwareLibrariesViewModel.SoftwareLibrary>
+    libraries: List<SoftwareLibsViewModel.SoftwareLibrary>
 ) {
     LazyColumn(
         modifier = Modifier

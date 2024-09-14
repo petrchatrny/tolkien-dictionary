@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.ui.component.BackArrowScreen
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.preferences.PrefGroup
 import cz.mendelu.pef.xchatrny.tolkiendictionary.ui.components.preferences.SpinnerPreference
@@ -26,7 +26,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun SettingsScreen(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter,
+    navigation: NavigationRouter,
     viewModel: SettingsViewModel = getViewModel()
 ) {
     var data by remember { mutableStateOf(viewModel.data) }
@@ -56,15 +56,15 @@ fun SettingsScreen(
 }
 
 @Composable
-fun SettingsScreenContent(
+private fun SettingsScreenContent(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter,
+    navigation: NavigationRouter,
     data: SettingsData,
     actions: SettingsActions
 ) {
     Column(modifier = Modifier.padding(paddingValues)) {
         TextPreference(
-            title = stringResource(R.string.update_dictionaries),
+            title = stringResource(R.string.auto_update),
             summary = stringResource(R.string.automatically_download_dictionaries),
             trailingContent = {
                 Switch(

@@ -1,4 +1,4 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word
+package cz.procyon.tolkiendict.mobile.ui.screen.word_form
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,16 +16,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
-class AddEditWordViewModel(
+class WordFormViewModel(
     private val wordsRepository: WordRepository,
     private val languagesRepository: LanguageRepository,
     private val sourcesRepository: SourceRepository,
     private val tengwarRepository: TengwarRepository
-) : BaseViewModel(), AddEditWordActions {
+) : BaseViewModel(), WordFormActions {
     var wordId: UUID? = null
 
-    var uiState by mutableStateOf<AddEditWordUIState>(AddEditWordUIState.Loading)
-    var data: AddEditWordData = AddEditWordData()
+    var uiState by mutableStateOf<WordFormUiState>(WordFormUiState.Loading)
+    var data: WordFormData = WordFormData()
 
     init {
         launch {
@@ -65,16 +65,16 @@ class AddEditWordViewModel(
         }
     }
 
-    override fun onDataChange(data: AddEditWordData) {
+    override fun onDataChange(data: WordFormData) {
         this.data = data
-        uiState = AddEditWordUIState.DataChanged
+        uiState = WordFormUiState.DataChanged
     }
 
     override fun saveWord(update: Boolean) {
         val isValid = validateWord()
 
         if (isValid) {
-            uiState = AddEditWordUIState.Saving
+            uiState = WordFormUiState.Saving
 
             // set language (it is assumed that after validation the language cannot be null)
             data.word.idLanguage = data.selectedLanguage?.value?.id
@@ -100,7 +100,7 @@ class AddEditWordViewModel(
                 performSave(update)
             }
         } else {
-            uiState = AddEditWordUIState.ValidationError
+            uiState = WordFormUiState.ValidationError
         }
 
     }
@@ -108,17 +108,17 @@ class AddEditWordViewModel(
     private suspend fun performSave(update: Boolean) {
         uiState = if (update) {
             wordsRepository.update(data.word)
-            AddEditWordUIState.WordUpdated
+            WordFormUiState.WordUpdated
         } else {
             wordsRepository.insert(data.word)
-            AddEditWordUIState.WordCreated
+            WordFormUiState.WordCreated
         }
     }
 
     override fun deleteWord() {
         launch {
             wordsRepository.delete(data.word)
-            uiState = AddEditWordUIState.WordDeleted
+            uiState = WordFormUiState.WordDeleted
         }
     }
 

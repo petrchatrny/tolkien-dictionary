@@ -27,11 +27,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cz.procyon.tolkiendict.mobile.R
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun LoadingScreen(navigation: INavigationRouter, viewModel: LoadingViewModel = getViewModel()) {
+fun LoadingScreen(navigation: NavigationRouter, viewModel: LoadingViewModel = getViewModel()) {
     var data by remember { mutableStateOf(viewModel.data) }
 
     viewModel.uiState.let {
@@ -54,7 +54,7 @@ fun LoadingScreen(navigation: INavigationRouter, viewModel: LoadingViewModel = g
         }
     }
 
-    LoadingScreenContent(
+    LoadingContent(
         data = data,
         state = viewModel.uiState,
         actions = viewModel
@@ -62,7 +62,7 @@ fun LoadingScreen(navigation: INavigationRouter, viewModel: LoadingViewModel = g
 }
 
 @Composable
-fun LoadingScreenContent(data: LoadingData, state: LoadingUIState, actions: LoadingActions) {
+private fun LoadingContent(data: LoadingData, state: LoadingUIState, actions: LoadingActions) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

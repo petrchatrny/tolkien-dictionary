@@ -1,4 +1,4 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.search
+package cz.procyon.tolkiendict.mobile.ui.screen.word_search
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,13 +13,13 @@ import cz.procyon.tolkiendict.mobile.repository.word.WordRepository
 import cz.procyon.tolkiendict.mobile.repository.word.SearchCriteria
 import kotlinx.coroutines.launch
 
-class SearchViewModel(
+class WordSearchViewModel(
     private val languagesRepository: LanguageRepository,
     private val wordsRepository: WordRepository,
     private val settingsRepository: SettingsRepository
-) : BaseViewModel(), SearchActions {
-    var uiState by mutableStateOf<SearchUIState>(SearchUIState.Init)
-    var data = SearchData()
+) : BaseViewModel(), WordSearchActions {
+    var uiState by mutableStateOf<WordSearchUiState>(WordSearchUiState.Init)
+    var data = WordSearchData()
 
     fun initData() {
         launch {
@@ -37,7 +37,7 @@ class SearchViewModel(
             }
 
             // load words
-            uiState = SearchUIState.Loading
+            uiState = WordSearchUiState.Loading
         }
 
         launch {
@@ -48,16 +48,16 @@ class SearchViewModel(
     }
 
     override fun search() {
-        uiState = SearchUIState.Loading
+        uiState = WordSearchUiState.Loading
 
         launch {
             data.selectedDictionaryType?.let { dict ->
                 wordsRepository.getAll(data.searchQuery, dict.language, dict.criterium).collect {
                     data.wordsCount = it.size
-                    uiState = SearchUIState.Success(it)
+                    uiState = WordSearchUiState.Success(it)
                 }
             } ?: run {
-                uiState = SearchUIState.Success(listOf())
+                uiState = WordSearchUiState.Success(listOf())
             }
         }
     }
@@ -71,12 +71,12 @@ class SearchViewModel(
 
     override fun onSearchQueryChange(newQuery: String) {
         data.searchQuery = newQuery
-        uiState = SearchUIState.QueryChange
+        uiState = WordSearchUiState.QueryChange
     }
 
     override fun onSelectedDictionaryTypeChange(newDictionaryType: DictionaryType) {
         data.selectedDictionaryType = newDictionaryType
-        uiState = SearchUIState.SelectedDictionaryTypeChange
+        uiState = WordSearchUiState.SelectedDictionaryTypeChange
     }
 
     override fun getWordCountLabel(count: Int): Int {

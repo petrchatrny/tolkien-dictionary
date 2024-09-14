@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import cz.procyon.tolkiendict.mobile.R
 import cz.procyon.tolkiendict.mobile.model.relations.WordWithLanguageAndSource
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.ui.component.BackArrowScreen
 import cz.procyon.tolkiendict.mobile.ui.component.URILink
 import cz.procyon.tolkiendict.mobile.ui.component.lists.TableRow
@@ -51,7 +51,7 @@ import java.util.UUID
 
 @Composable
 fun WordDetailScreen(
-    navigation: INavigationRouter,
+    navigation: NavigationRouter,
     id: UUID,
     viewModel: WordDetailViewModel = getViewModel()
 ) {
@@ -87,12 +87,12 @@ fun WordDetailScreen(
             }
         }
     ) {
-        WordDetailScreenContent(it, word, viewModel)
+        WordDetailContent(it, word, viewModel)
     }
 }
 
 @Composable
-fun WordDetailScreenContent(
+private fun WordDetailContent(
     paddingValues: PaddingValues,
     detailedWord: WordWithLanguageAndSource?,
     actions: WordDetailActions

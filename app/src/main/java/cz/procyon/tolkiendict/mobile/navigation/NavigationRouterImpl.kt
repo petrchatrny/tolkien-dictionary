@@ -6,7 +6,8 @@ import java.util.UUID
 
 class NavigationRouterImpl(
     private val navController: NavController
-) : INavigationRouter {
+) : NavigationRouter {
+
     override fun navigateBack() {
         navController.popBackStack()
     }

@@ -10,7 +10,7 @@ import cz.procyon.tolkiendict.mobile.repository.settings.SettingsRepository
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val repository: SettingsRepository
+    private val repository: SettingsRepository,
 ) : BaseViewModel(), SettingsActions {
 
     var uiState by mutableStateOf<SettingsUIState>(SettingsUIState.Default)

@@ -8,11 +8,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.procyon.tolkiendict.mobile.ui.screen.software_libraries.SoftwareLibrariesViewModel
+import cz.procyon.tolkiendict.mobile.ui.screen.software_lib.SoftwareLibsViewModel
 
 @Composable
 fun SoftwareLibraryLT(
-    library: SoftwareLibrariesViewModel.SoftwareLibrary
+    library: SoftwareLibsViewModel.SoftwareLibrary
 ) {
     ListItem(
         modifier = Modifier

@@ -10,14 +10,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import cz.procyon.tolkiendict.mobile.navigation.BottomNavDestination
 import cz.procyon.tolkiendict.mobile.navigation.Destination
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.navigation.NavigationRouterImpl
 import cz.procyon.tolkiendict.mobile.navigation.UUID_ARGUMENT_KEY
-import cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word.AddEditWordScreen
-import cz.procyon.tolkiendict.mobile.ui.screen.saved_words.SavedWordsScreen
-import cz.procyon.tolkiendict.mobile.ui.screen.search.SearchScreen
+import cz.procyon.tolkiendict.mobile.ui.screen.word_form.WordFormScreen
+import cz.procyon.tolkiendict.mobile.ui.screen.word_saved.WordSavedScreen
+import cz.procyon.tolkiendict.mobile.ui.screen.word_search.WordSearchScreen
 import cz.procyon.tolkiendict.mobile.ui.screen.settings.SettingsScreen
-import cz.procyon.tolkiendict.mobile.ui.screen.software_libraries.SoftwareLibrariesScreen
+import cz.procyon.tolkiendict.mobile.ui.screen.software_lib.SoftwareLibsScreen
 import cz.procyon.tolkiendict.mobile.ui.screen.sources.SourcesScreen
 import cz.procyon.tolkiendict.mobile.ui.screen.word_detail.WordDetailScreen
 import java.util.UUID
@@ -25,7 +25,7 @@ import java.util.UUID
 @Composable
 fun HomeNavGraph(
     navController: NavHostController,
-    navigation: INavigationRouter = remember { NavigationRouterImpl(navController) },
+    navigation: NavigationRouter = remember { NavigationRouterImpl(navController) },
     paddingValues: PaddingValues
 ) {
     NavHost(
@@ -34,11 +34,11 @@ fun HomeNavGraph(
         startDestination = BottomNavDestination.SearchScreen.route
     ) {
         composable(route = BottomNavDestination.SearchScreen.route) {
-            SearchScreen(paddingValues = paddingValues, navigation = navigation)
+            WordSearchScreen(paddingValues = paddingValues, navigation = navigation)
         }
 
         composable(route = BottomNavDestination.SavedWordsScreen.route) {
-            SavedWordsScreen(paddingValues = paddingValues, navigation = navigation)
+            WordSavedScreen(paddingValues = paddingValues, navigation = navigation)
         }
 
         composable(route = BottomNavDestination.SettingsScreen.route) {
@@ -73,9 +73,9 @@ fun HomeNavGraph(
             val uuidString = it.arguments?.getString(UUID_ARGUMENT_KEY)
             if (!uuidString.isNullOrEmpty() && uuidString != "null") {
                 val uuid = UUID.fromString(uuidString)
-                AddEditWordScreen(navigation = navigation, id = uuid)
+                WordFormScreen(navigation = navigation, id = uuid)
             } else {
-                AddEditWordScreen(navigation = navigation, id = null)
+                WordFormScreen(navigation = navigation, id = null)
             }
         }
 
@@ -84,7 +84,7 @@ fun HomeNavGraph(
         }
 
         composable(Destination.SoftwareLibrariesScreen.route) {
-            SoftwareLibrariesScreen(navigation = navigation)
+            SoftwareLibsScreen(navigation = navigation)
         }
     }
 }

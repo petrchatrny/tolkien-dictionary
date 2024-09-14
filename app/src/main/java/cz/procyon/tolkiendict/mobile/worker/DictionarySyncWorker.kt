@@ -32,8 +32,8 @@ class DictionarySyncWorker(
 
         try {
             // do sync
-            val res =
-                dictionaryRepository.syncDictionary(dictionaryRepository.getLastSyncDateTime())
+            val lastSync = dictionaryRepository.getLastSyncDateTime()
+            val res = dictionaryRepository.syncDictionary(lastSync)
 
             // delete old entities
             performDelete(res)

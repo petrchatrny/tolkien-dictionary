@@ -1,4 +1,4 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.search
+package cz.procyon.tolkiendict.mobile.ui.screen.word_search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,46 +29,45 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cz.procyon.tolkiendict.mobile.R
 import cz.procyon.tolkiendict.mobile.model.Word
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.repository.word.SearchCriteria
 import cz.procyon.tolkiendict.mobile.ui.component.SearchTopBar
 import cz.procyon.tolkiendict.mobile.ui.component.TextSpinner
 import cz.procyon.tolkiendict.mobile.ui.component.lists.WordLT
 import org.koin.androidx.compose.getViewModel
 
-
 @Composable
-fun SearchScreen(
+fun WordSearchScreen(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter,
-    viewModel: SearchViewModel = getViewModel()
+    navigation: NavigationRouter,
+    viewModel: WordSearchViewModel = getViewModel()
 ) {
     val words = remember { mutableStateListOf<Word>() }
 
     viewModel.uiState.let {
         when (it) {
-            SearchUIState.Init -> {
+            WordSearchUiState.Init -> {
                 viewModel.initData()
             }
 
-            SearchUIState.Default -> {}
+            WordSearchUiState.Default -> {}
 
-            SearchUIState.Loading -> {
+            WordSearchUiState.Loading -> {
                 words.clear()
                 viewModel.search()
             }
 
-            is SearchUIState.Success -> {
+            is WordSearchUiState.Success -> {
                 words.clear()
                 words.addAll(it.words)
             }
 
-            SearchUIState.QueryChange -> {
-                viewModel.uiState = SearchUIState.Default
+            WordSearchUiState.QueryChange -> {
+                viewModel.uiState = WordSearchUiState.Default
             }
 
-            SearchUIState.SelectedDictionaryTypeChange -> {
-                viewModel.uiState = SearchUIState.Loading
+            WordSearchUiState.SelectedDictionaryTypeChange -> {
+                viewModel.uiState = WordSearchUiState.Loading
             }
         }
     }
@@ -81,11 +80,11 @@ fun SearchScreen(
                 query = viewModel.data.searchQuery,
                 onQueryChange = { viewModel.onSearchQueryChange(it) },
                 onSubmit = {
-                    viewModel.uiState = SearchUIState.Loading
+                    viewModel.uiState = WordSearchUiState.Loading
                 },
                 onClear = {
                     viewModel.onSearchQueryChange("")
-                    viewModel.uiState = SearchUIState.Loading
+                    viewModel.uiState = WordSearchUiState.Loading
                 }
             )
         },
@@ -94,24 +93,24 @@ fun SearchScreen(
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }) {
-        SearchScreenContent(
+        WordSearchContent(
             paddingValues = it,
             navigation = navigation,
             actions = viewModel,
             words = words,
             data = viewModel.data,
-            isLoading = viewModel.uiState == SearchUIState.Loading
+            isLoading = viewModel.uiState == WordSearchUiState.Loading
         )
     }
 }
 
 @Composable
-fun SearchScreenContent(
+private fun WordSearchContent(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter,
-    actions: SearchActions,
+    navigation: NavigationRouter,
+    actions: WordSearchActions,
     words: List<Word>,
-    data: SearchData,
+    data: WordSearchData,
     isLoading: Boolean
 ) {
     Column(modifier = Modifier.padding(paddingValues)) {
@@ -135,7 +134,13 @@ fun SearchScreenContent(
                 onClick = {},
                 label = {
                     Text(
-                        text = "${data.wordsCount} ${stringResource(id = actions.getWordCountLabel(data.wordsCount))}",
+                        text = "${data.wordsCount} ${
+                            stringResource(
+                                id = actions.getWordCountLabel(
+                                    data.wordsCount
+                                )
+                            )
+                        }",
                         fontSize = MaterialTheme.typography.labelMedium.fontSize
                     )
                 },

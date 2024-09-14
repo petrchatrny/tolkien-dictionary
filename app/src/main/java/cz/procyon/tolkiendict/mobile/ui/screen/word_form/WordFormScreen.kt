@@ -1,4 +1,4 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word
+package cz.procyon.tolkiendict.mobile.ui.screen.word_form
 
 import android.content.Context
 import android.widget.Toast
@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.procyon.tolkiendict.mobile.R
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.ui.component.BackArrowScreen
 import cz.procyon.tolkiendict.mobile.ui.component.LoadingButton
 import cz.procyon.tolkiendict.mobile.ui.component.fields.PickerField
@@ -38,35 +38,35 @@ import org.koin.androidx.compose.getViewModel
 import java.util.UUID
 
 @Composable
-fun AddEditWordScreen(
-    navigation: INavigationRouter,
+fun WordFormScreen(
+    navigation: NavigationRouter,
     id: UUID?,
-    viewModel: AddEditWordViewModel = getViewModel()
+    viewModel: WordFormViewModel = getViewModel()
 ) {
     viewModel.wordId = id
-    var data: cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word.AddEditWordData by remember { mutableStateOf(viewModel.data) }
+    var data: WordFormData by remember { mutableStateOf(viewModel.data) }
 
     viewModel.uiState.let {
         when (it) {
-            AddEditWordUIState.Default -> {}
+            WordFormUiState.Default -> {}
 
-            AddEditWordUIState.Loading -> {
+            WordFormUiState.Loading -> {
                 viewModel.initWord()
             }
 
-            AddEditWordUIState.Saving -> {}
+            WordFormUiState.Saving -> {}
 
-            AddEditWordUIState.DataChanged -> {
+            WordFormUiState.DataChanged -> {
                 data = viewModel.data
-                viewModel.uiState = AddEditWordUIState.Default
+                viewModel.uiState = WordFormUiState.Default
             }
 
-            AddEditWordUIState.ValidationError -> {
+            WordFormUiState.ValidationError -> {
                 data = viewModel.data
-                viewModel.uiState = AddEditWordUIState.Default
+                viewModel.uiState = WordFormUiState.Default
             }
 
-            AddEditWordUIState.WordCreated -> {
+            WordFormUiState.WordCreated -> {
                 SubmitForm(
                     state = it,
                     context = LocalContext.current,
@@ -75,7 +75,7 @@ fun AddEditWordScreen(
                 )
             }
 
-            AddEditWordUIState.WordUpdated -> {
+            WordFormUiState.WordUpdated -> {
                 SubmitForm(
                     state = it,
                     context = LocalContext.current,
@@ -84,7 +84,7 @@ fun AddEditWordScreen(
                 )
             }
 
-            AddEditWordUIState.WordDeleted -> {
+            WordFormUiState.WordDeleted -> {
                 SubmitForm(
                     state = it,
                     context = LocalContext.current,
@@ -101,10 +101,10 @@ fun AddEditWordScreen(
             ?: stringResource(R.string.add_word),
         onBackClick = { navigation.navigateBack() }
     ) {
-        AddEditWordContent(
+        WordFormContent(
             paddingValues = it,
             isEdit = id != null,
-            isSaving = viewModel.uiState == AddEditWordUIState.Saving,
+            isSaving = viewModel.uiState == WordFormUiState.Saving,
             data = data,
             actions = viewModel
         )
@@ -112,12 +112,12 @@ fun AddEditWordScreen(
 }
 
 @Composable
-fun AddEditWordContent(
+private fun WordFormContent(
     paddingValues: PaddingValues,
     isEdit: Boolean,
     isSaving: Boolean,
-    data: cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word.AddEditWordData,
-    actions: cz.procyon.tolkiendict.mobile.ui.screen.add_edit_word.AddEditWordActions
+    data: WordFormData,
+    actions: WordFormActions
 ) {
     var isChooseSourceDialogVisible by remember { mutableStateOf(false) }
 
@@ -230,10 +230,10 @@ fun AddEditWordContent(
 
 @Composable
 private fun SubmitForm(
-    state: AddEditWordUIState,
+    state: WordFormUiState,
     context: Context,
     message: String,
-    navigation: INavigationRouter
+    navigation: NavigationRouter
 ) {
     LaunchedEffect(state) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

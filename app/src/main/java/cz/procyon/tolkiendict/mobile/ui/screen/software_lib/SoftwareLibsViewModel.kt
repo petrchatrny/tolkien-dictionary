@@ -1,8 +1,8 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.software_libraries
+package cz.procyon.tolkiendict.mobile.ui.screen.software_lib
 
 import cz.procyon.tolkiendict.mobile.architecture.BaseViewModel
 
-class SoftwareLibrariesViewModel : BaseViewModel() {
+class SoftwareLibsViewModel : BaseViewModel() {
     val libraries = listOf(
         SoftwareLibrary(
             "Compose Material3 Components",

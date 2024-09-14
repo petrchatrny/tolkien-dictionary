@@ -1,4 +1,4 @@
-package cz.procyon.tolkiendict.mobile.ui.screen.saved_words
+package cz.procyon.tolkiendict.mobile.ui.screen.word_saved
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,26 +21,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cz.procyon.tolkiendict.mobile.R
 import cz.procyon.tolkiendict.mobile.model.relations.WordWithLanguage
-import cz.procyon.tolkiendict.mobile.navigation.INavigationRouter
+import cz.procyon.tolkiendict.mobile.navigation.NavigationRouter
 import cz.procyon.tolkiendict.mobile.ui.component.BackArrowScreen
 import cz.procyon.tolkiendict.mobile.ui.component.lists.SavedWordLT
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SavedWordsScreen(
+fun WordSavedScreen(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter,
-    viewModel: SavedWordsViewModel = getViewModel()
+    navigation: NavigationRouter,
+    viewModel: WordSavedViewModel = getViewModel()
 ) {
     val words = remember { mutableStateListOf<WordWithLanguage>() }
 
     viewModel.uiState.let {
         when (it) {
-            SavedWordsUIState.Default -> {
+            WordSavedUiState.Default -> {
                 viewModel.loadWords()
             }
 
-            is SavedWordsUIState.Success -> {
+            is WordSavedUiState.Success -> {
                 words.clear()
                 words.addAll(it.words)
             }
@@ -52,7 +52,7 @@ fun SavedWordsScreen(
         drawFullScreenContent = true,
         appBarTitle = stringResource(R.string.saved)
     ) {
-        SavedWordsScreenContent(
+        WordSavedContent(
             paddingValues = it,
             navigation = navigation,
             words = words
@@ -61,9 +61,9 @@ fun SavedWordsScreen(
 }
 
 @Composable
-fun SavedWordsScreenContent(
+private fun WordSavedContent(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter,
+    navigation: NavigationRouter,
     words: List<WordWithLanguage>
 ) {
     if (words.isNotEmpty()) {
