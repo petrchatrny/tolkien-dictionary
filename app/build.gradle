@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'cz.mendelu.pef.xchatrny.tolkiendictionary'
+    namespace 'cz.procyon.tolkiendict.mobile'
     compileSdk 33
 
     defaultConfig {
-        applicationId "cz.mendelu.pef.xchatrny.tolkiendictionary"
+        applicationId "cz.procyon.tolkiendict.mobile"
         minSdk 26
         targetSdk 33
         versionCode 1
