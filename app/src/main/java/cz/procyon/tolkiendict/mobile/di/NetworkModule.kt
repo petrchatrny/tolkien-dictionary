@@ -4,6 +4,7 @@ import cz.procyon.tolkiendict.mobile.BuildConfig
 import cz.procyon.tolkiendict.mobile.api.RetrofitConfig
 import cz.procyon.tolkiendict.mobile.api.endpoint.DictionaryApi
 import cz.procyon.tolkiendict.mobile.api.endpoint.TengwarApi
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.StringQualifier
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -20,20 +21,21 @@ val networkModule = module {
         RetrofitConfig(BuildConfig.DICTIONARY_API).createRetrofit()
     }
 
-    fun provideTengwarApi(): TengwarApi {
-        return get<Retrofit>(
-            clazz = Retrofit::class.java,
-            qualifier = StringQualifier("tencendil")
-        ).create(TengwarApi::class.java)
-    }
+    // API instances
+    singleOf(::provideTengwarApi)
+    singleOf(::provideDictionaryApi)
+}
 
-    fun provideDictionaryApi(): DictionaryApi {
-        return get<Retrofit>(
-            clazz = Retrofit::class.java,
-            qualifier = StringQualifier("dictionary")
-        ).create(DictionaryApi::class.java)
-    }
+private fun provideTengwarApi(): TengwarApi {
+    return get<Retrofit>(
+        clazz = Retrofit::class.java,
+        qualifier = StringQualifier("tencendil")
+    ).create(TengwarApi::class.java)
+}
 
-    single { provideTengwarApi() }
-    single { provideDictionaryApi() }
+private fun provideDictionaryApi(): DictionaryApi {
+    return get<Retrofit>(
+        clazz = Retrofit::class.java,
+        qualifier = StringQualifier("dictionary")
+    ).create(DictionaryApi::class.java)
 }

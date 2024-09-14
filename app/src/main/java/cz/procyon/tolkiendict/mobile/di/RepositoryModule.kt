@@ -1,7 +1,6 @@
 package cz.procyon.tolkiendict.mobile.di
 
 import android.content.Context
-import cz.procyon.tolkiendict.mobile.TolkienDictionaryApp
 import cz.procyon.tolkiendict.mobile.api.endpoint.DictionaryApi
 import cz.procyon.tolkiendict.mobile.api.endpoint.TengwarApi
 import cz.procyon.tolkiendict.mobile.database.dao.LanguageDao
@@ -19,38 +18,41 @@ import cz.procyon.tolkiendict.mobile.repository.tengwar.TengwarRepository
 import cz.procyon.tolkiendict.mobile.repository.tengwar.TengwarRestRepository
 import cz.procyon.tolkiendict.mobile.repository.word.WordRepository
 import cz.procyon.tolkiendict.mobile.repository.word.WordRoomRepository
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val repositoryModule = module {
+    singleOf(::provideWordRepository)
+    singleOf(::provideLanguageRepository)
+    singleOf(::provideSourceRepository)
+    singleOf(::provideTengwarRepository)
+    singleOf(::provideDictionaryRepository)
+    singleOf(::provideSettingsRepository)
+}
 
-    fun provideWordsRepository(dao: WordDao): WordRepository {
-        return WordRoomRepository(dao)
-    }
+private fun provideWordRepository(dao: WordDao): WordRepository {
+    return WordRoomRepository(dao)
+}
 
-    fun provideLanguagesRepository(dao: LanguageDao): LanguageRepository {
-        return LanguageRoomRepository(dao)
-    }
+private fun provideLanguageRepository(dao: LanguageDao): LanguageRepository {
+    return LanguageRoomRepository(dao)
+}
 
-    fun provideSourcesRepository(dao: SourceDao): SourceRepository {
-        return SourceRoomRepository(dao)
-    }
+private fun provideSourceRepository(dao: SourceDao): SourceRepository {
+    return SourceRoomRepository(dao)
+}
 
-    fun provideTengwarRepository(api: TengwarApi): TengwarRepository {
-        return TengwarRestRepository(api)
-    }
+private fun provideTengwarRepository(api: TengwarApi): TengwarRepository {
+    return TengwarRestRepository(api)
+}
 
-    fun provideDictionaryRepository(api: DictionaryApi, context: Context): DictionaryRepository {
-        return DictionaryRestRepository(api, context)
-    }
+private fun provideDictionaryRepository(
+    api: DictionaryApi,
+    context: Context
+): DictionaryRepository {
+    return DictionaryRestRepository(api, context)
+}
 
-    fun provideSettingsRepository(context: Context): SettingsRepository {
-        return SettingsDataStoreRepository(context)
-    }
-
-    single { provideWordsRepository(get()) }
-    single { provideLanguagesRepository(get()) }
-    single { provideSourcesRepository(get()) }
-    single { provideTengwarRepository(get()) }
-    single { provideDictionaryRepository(get(), TolkienDictionaryApp.appContext) }
-    single { provideSettingsRepository(TolkienDictionaryApp.appContext) }
+private fun provideSettingsRepository(context: Context): SettingsRepository {
+    return SettingsDataStoreRepository(context)
 }

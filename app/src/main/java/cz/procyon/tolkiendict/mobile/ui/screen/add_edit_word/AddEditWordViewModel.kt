@@ -64,6 +64,7 @@ class AddEditWordViewModel(
             }
         }
     }
+
     override fun onDataChange(data: AddEditWordData) {
         this.data = data
         uiState = AddEditWordUIState.DataChanged
